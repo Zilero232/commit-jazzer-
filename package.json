@@ -1,0 +1,107 @@
+{
+	"name": "commit-jazzer",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+	"description": "A plugin for adding emoji to commit messages, enhancing readability and consistency for git commit conventions.",
+	"author": {
+		"name": "Artemev Alexandr",
+		"url": "https://github.com/Zilero232"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/Zilero232/commit-jazzer#readme",
+	"repository": {
+		"url": "https://github.com/Zilero232/commit-jazzer"
+	},
+	"bugs": {
+		"url": "https://github.com/Zilero232/commit-jazzer/issues"
+	},
+	"keywords": [
+		"emoji",
+		"git",
+		"commit",
+		"commitizen",
+		"gitmoji",
+		"conventional commit",
+		"cli"
+	],
+	"exports": {
+		".": {
+			"import": "./build/esm/index.js",
+			"require": "./build/common/index.cjs"
+		}
+	},
+	"main": "./build/common/index.cjs",
+	"config": {
+		"commitizen": {
+			"path": "./build/common/index.cjs"
+		}
+	},
+	"bin": {
+		"git-jazzer": "./bin/git-cz"
+	},
+	"engines": {
+		"node": ">=14.17.6"
+	},
+	"scripts": {
+		"build:dev": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode development",
+		"build:prod": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode production",
+		"husky:prepare": "husky install",
+		"lint:check": "yarn eslint",
+		"lint:fix": "yarn eslint --fix",
+		"generate-schema": "node --import=./scripts/register-ts-node.js ./scripts/generate-schema.ts",
+		"commit": "yarn git-cz",
+		"knip": "knip -c ./knip.json -t ./tsconfig.json",
+		"cspell": "cspell lint -c ./.cspell.json --gitignore --cache --cache-location ./cache/cspellcache **"
+	},
+	"dependencies": {
+		"chalk": "^5.3.0",
+		"commitizen": "^4.3.1",
+		"cosmiconfig": "^9.0.0",
+		"fuse.js": "^7.0.0",
+		"handlebars": "^4.7.8",
+		"inquirer": "8.2.6",
+		"inquirer-autocomplete-prompt": "2.0.1",
+		"inquirer-maxlength-input-prompt": "^1.0.2",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^3.8.0",
+		"@babel/core": "^7.26.0",
+		"@babel/plugin-transform-modules-commonjs": "^7.25.9",
+		"@babel/preset-env": "^7.26.0",
+		"@babel/preset-typescript": "^7.26.0",
+		"@cspell/dict-ru_ru": "^2.2.4",
+		"@types/inquirer": "^9.0.7",
+		"@types/inquirer-autocomplete-prompt": "^3.0.3",
+		"@types/node": "^22.9.0",
+		"@types/webpack-bundle-analyzer": "^4.7.0",
+		"@types/webpack-node-externals": "^3.0.4",
+		"babel-loader": "^9.2.1",
+		"copy-webpack-plugin": "^12.0.2",
+		"cspell": "^8.16.0",
+		"eslint": "^9.13.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-format": "^0.1.2",
+		"eslint-plugin-prettier": "^5.2.1",
+		"fork-ts-checker-webpack-plugin": "^9.0.2",
+		"husky": "^9.1.6",
+		"knip": "^5.36.3",
+		"lint-staged": "^15.2.10",
+		"ts-node": "^10.9.2",
+		"tsconfig-paths-webpack-plugin": "^4.1.0",
+		"typescript": "^5.6.3",
+		"typescript-json-schema": "^0.65.1",
+		"vite-tsconfig-paths": "^5.1.0",
+		"vitest": "^2.1.4",
+		"webpack": "^5.96.0",
+		"webpack-bundle-analyzer": "^4.10.2",
+		"webpack-cli": "^5.1.4",
+		"webpack-node-externals": "^3.0.0",
+		"webpack-shell-plugin-next": "^2.3.2"
+	},
+	"overrides": {
+		"inquirer": "8.2.6"
+	}
+}

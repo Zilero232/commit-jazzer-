@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@/config/*": ["src/config/*"],
+			"@/constants/*": ["src/constants/*"],
+			"@/helpers/*": ["src/helpers/*"],
+			"@/schema/*": ["src/schema/*"],
+			"@/translations/*": ["src/translations/*"],
+			"@/types/*": ["src/types/*"],
+			"@/utils/*": ["src/utils/*"],
+			"@/lib/*": ["lib/*"]
+		}
+	}
+}

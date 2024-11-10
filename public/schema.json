@@ -1,0 +1,330 @@
+{
+	"type": "object",
+	"properties": {
+		"language": {
+			"description": "Language.",
+			"default": "en",
+			"enum": ["en", "es", "ru"],
+			"type": "string"
+		},
+		"template": {
+			"description": "Format message.",
+			"default": "\"{{type}}: {{emoji}} - {{title}}\";",
+			"type": "string"
+		},
+		"disableEmoji": {
+			"description": "Disable emoji.",
+			"default": false,
+			"type": "boolean"
+		},
+		"minMessageLength": {
+			"description": "Global minimum message length.",
+			"default": 70,
+			"type": "number"
+		},
+		"maxMessageLength": {
+			"description": "Global maximum message length.",
+			"default": 70,
+			"type": "number"
+		},
+		"availableCommitTypes": {
+			"description": "The types that will be shown in the list of type selections.",
+			"default": [],
+			"type": "array",
+			"items": {
+				"enum": [
+					"a11y",
+					"analytics",
+					"animation",
+					"api",
+					"arch",
+					"breaking",
+					"build",
+					"ci",
+					"clean",
+					"config",
+					"db",
+					"deploy",
+					"docs",
+					"downgrade",
+					"experiment",
+					"feat",
+					"fix",
+					"fix-ci",
+					"flag",
+					"i18n",
+					"init",
+					"legal",
+					"mock",
+					"monitor",
+					"perf",
+					"pkg",
+					"prune",
+					"refactor",
+					"remove",
+					"revert",
+					"review",
+					"script",
+					"security",
+					"seo",
+					"struct",
+					"style",
+					"support",
+					"task",
+					"test",
+					"typo",
+					"upgrade",
+					"ux"
+				],
+				"type": "string"
+			}
+		},
+		"availablePromptQuestions": {
+			"description": "The types that will be shown in the list of type selections.",
+			"default": [],
+			"type": "array",
+			"items": {
+				"enum": ["breaking", "comment", "component", "description", "issues", "title", "type"],
+				"type": "string"
+			}
+		},
+		"commitTypes": {
+			"description": "Can change the basic types here or add your own type.",
+			"default": {},
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				},
+				"title": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				},
+				"description": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				},
+				"component": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				},
+				"breaking": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				},
+				"issues": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				},
+				"comment": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"emoji": {
+							"type": "string"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"required": ["breaking", "comment", "component", "description", "issues", "title", "type"]
+		},
+		"promptQuestions": {
+			"description": "Can change the basic questions here or add your own question.",
+			"default": [],
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"enum": [
+							"autocomplete",
+							"checkbox",
+							"confirm",
+							"editor",
+							"expand",
+							"input",
+							"list",
+							"maxlength-input",
+							"number",
+							"password",
+							"rawlist",
+							"toggle"
+						],
+						"type": "string"
+					},
+					"key": {
+						"enum": ["breaking", "comment", "component", "description", "issues", "title", "type"],
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"options": {
+						"type": "object",
+						"properties": {
+							"required": {
+								"type": "boolean"
+							},
+							"skip": {
+								"type": "boolean"
+							},
+							"validations": {
+								"type": "object",
+								"properties": {
+									"length": {
+										"type": "object",
+										"properties": {
+											"minMessageLength": {
+												"type": "number"
+											},
+											"maxMessageLength": {
+												"type": "number"
+											}
+										}
+									}
+								}
+							},
+							"filter": {
+								"type": "object"
+							}
+						}
+					}
+				},
+				"required": ["key", "message", "type"]
+			}
+		},
+		"badWordsOptions": {
+			"description": "Bad words validation options.",
+			"default": {},
+			"type": "object",
+			"properties": {
+				"checkHasProfaneWords": {
+					"type": "boolean"
+				},
+				"clearMessage": {
+					"type": "boolean"
+				},
+				"replaceProfaneWords": {
+					"type": "boolean"
+				},
+				"options": {
+					"type": "object",
+					"properties": {
+						"additionalBlockWords": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"excludedWords": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"placeholder": {
+							"type": "string"
+						},
+						"overrideBlockWords": {
+							"type": "boolean"
+						}
+					}
+				}
+			}
+		},
+		"validateCommitBadWords": {
+			"description": "Check commit message for bad words",
+			"default": true,
+			"type": "boolean"
+		}
+	},
+	"required": ["template"],
+	"$schema": "http://json-schema.org/draft-07/schema#"
+}

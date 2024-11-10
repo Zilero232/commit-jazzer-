@@ -1,0 +1,10 @@
+{
+	"language": "en,ru",
+	"minWordLength": 3,
+	"ignorePaths": ["package.json", "renovate.json", "./cache", "./public", "./src/translations"],
+	"dictionaries": ["en_US", "ru_RU"],
+	"import": ["@cspell/dict-ru_ru/cspell-ext.json"],
+	"ignoreWords": ["zilero"],
+	"useGitignore": true,
+	"words": ["splited"]
+}

@@ -1,0 +1,8 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"entry": "./src/index.ts",
+	"project": ["./src/**/*"],
+	"webpack": false,
+	"ignore": ["node_modules", "build", "coverage", "./src/**/*.test.ts"],
+	"ignoreDependencies": ["babel*", "@babel/*", "@types/*", "webpack*", "commitizen"]
+}

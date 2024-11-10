@@ -1,0 +1,23 @@
+{
+	"$schema": "https://json.schemastore.org/renovate.json",
+	"extends": ["config:base"],
+	"schedule": ["every day"],
+	"semanticCommits": true,
+	"ignorePeerDeps": true,
+	"pinVersions": false,
+	"packageRules": [
+		{
+			"updateTypes": ["major"],
+			"automerge": false
+		},
+		{
+			"updateTypes": ["minor", "patch"],
+			"automerge": true
+		}
+	],
+	"devDependencies": {
+		"automerge": true,
+		"pinVersions": true
+	},
+	"commitMessageAction": "🤖 Update"
+}
