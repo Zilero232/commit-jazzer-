@@ -5,9 +5,9 @@
 			"@/constants/*": ["src/constants/*"],
 			"@/helpers/*": ["src/helpers/*"],
 			"@/schema/*": ["src/schema/*"],
-			"@/translations/*": ["src/translations/*"],
+			"@/translations": ["src/translations/index.ts"],
 			"@/types/*": ["src/types/*"],
-			"@/utils/*": ["src/utils/*"],
+			"@/utils": ["src/utils/index.ts"],
 			"@/lib/*": ["lib/*"]
 		}
 	}

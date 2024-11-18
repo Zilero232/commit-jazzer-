@@ -1,5 +1,3 @@
-/* eslint-disable style/brace-style */
-
 import { existsSync, writeFileSync } from 'node:fs';
 import process from 'node:process';
 

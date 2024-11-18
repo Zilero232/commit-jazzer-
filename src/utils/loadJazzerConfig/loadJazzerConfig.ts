@@ -18,6 +18,7 @@ import type { CommitJazzerPrompterOptions } from '@/types/index';
  * The function returns a promise that resolves to either the loaded configuration or null if the configuration is invalid.
  *
  * The configuration is loaded using the `cosmiconfig` package, which searches for configuration files in the following order:
+ * - `.jazzer-cz.json`
  * - `jazzer-cz.json`
  * - `jazzer-cz.js`
  *
@@ -54,10 +55,12 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 			process.exit(1);
 		}
 
+		const data = parseResult.data as CommitJazzerPrompterOptions;
+
 		// If the configuration is valid, we merge it with the default configuration.
 		return {
 			...DEFAULT_CONFIGURATION,
-			...(parseResult.data as CommitJazzerPrompterOptions),
+			...data,
 		};
 	} catch (error: unknown) {
 		console.error(`[ConfigLoader] Unexpected error while loading configuration: ${(error as Error).message}`);

@@ -17,16 +17,6 @@
 			"default": false,
 			"type": "boolean"
 		},
-		"minMessageLength": {
-			"description": "Global minimum message length.",
-			"default": 70,
-			"type": "number"
-		},
-		"maxMessageLength": {
-			"description": "Global maximum message length.",
-			"default": 70,
-			"type": "number"
-		},
 		"availableCommitTypes": {
 			"description": "The types that will be shown in the list of type selections.",
 			"default": [],
@@ -84,7 +74,6 @@
 			"default": [],
 			"type": "array",
 			"items": {
-				"enum": ["breaking", "comment", "component", "description", "issues", "title", "type"],
 				"type": "string"
 			}
 		},
@@ -97,15 +86,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -114,15 +111,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -131,15 +136,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -148,15 +161,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -165,15 +186,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -182,15 +211,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -199,15 +236,23 @@
 					"type": "object",
 					"properties": {
 						"name": {
+							"description": "Title of the type commit.",
+							"default": "deploy",
 							"type": "string"
 						},
 						"emoji": {
+							"description": "Emoji of the type commit.",
+							"default": "🚀",
 							"type": "string"
 						},
 						"code": {
+							"description": "Code of the emoji.",
+							"default": ":rocket:",
 							"type": "string"
 						},
 						"description": {
+							"description": "Description of the type commit.",
+							"default": "Deploying application",
 							"type": "string"
 						}
 					}
@@ -215,14 +260,77 @@
 			},
 			"required": ["breaking", "comment", "component", "description", "issues", "title", "type"]
 		},
-		"promptQuestions": {
-			"description": "Can change the basic questions here or add your own question.",
+		"baseQuestionsOptions": {
+			"description": "Change options of the basic questions.",
+			"default": [],
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"key": {
+						"description": "Question key.",
+						"default": "type",
+						"enum": ["breaking", "comment", "component", "description", "issues", "title", "type"],
+						"type": "string"
+					},
+					"message": {
+						"description": "Question message.",
+						"default": "For example message",
+						"type": "string"
+					},
+					"options": {
+						"description": "Question options.",
+						"default": {},
+						"type": "object",
+						"properties": {
+							"required": {
+								"description": "Required question.",
+								"default": "boolean",
+								"type": "boolean"
+							},
+							"skip": {
+								"description": "Skip question.",
+								"default": "boolean",
+								"type": "boolean"
+							},
+							"validations": {
+								"description": "Validation options.",
+								"default": {},
+								"type": "object",
+								"properties": {
+									"length": {
+										"type": "object",
+										"properties": {
+											"minMessageLength": {
+												"description": "Minimum message length.",
+												"default": 0,
+												"type": "number"
+											},
+											"maxMessageLength": {
+												"description": "Maximum message length.",
+												"default": 70,
+												"type": "number"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"required": ["key"]
+			}
+		},
+		"createCustomQuestions": {
+			"description": "Create custom questions.",
 			"default": [],
 			"type": "array",
 			"items": {
 				"type": "object",
 				"properties": {
 					"type": {
+						"description": "Question type.",
+						"default": "input",
 						"enum": [
 							"autocomplete",
 							"checkbox",
@@ -240,45 +348,62 @@
 						"type": "string"
 					},
 					"key": {
-						"enum": ["breaking", "comment", "component", "description", "issues", "title", "type"],
+						"description": "Question key.",
+						"default": "random",
 						"type": "string"
 					},
 					"message": {
+						"description": "Question message.",
+						"default": "For example message",
 						"type": "string"
 					},
 					"options": {
+						"description": "Question options.",
+						"default": {},
 						"type": "object",
 						"properties": {
 							"required": {
+								"description": "Required question.",
+								"default": "boolean",
 								"type": "boolean"
 							},
 							"skip": {
+								"description": "Skip question.",
+								"default": "boolean",
 								"type": "boolean"
 							},
 							"validations": {
+								"description": "Validation options.",
+								"default": {},
 								"type": "object",
 								"properties": {
 									"length": {
 										"type": "object",
 										"properties": {
 											"minMessageLength": {
+												"description": "Minimum message length.",
+												"default": 0,
 												"type": "number"
 											},
 											"maxMessageLength": {
+												"description": "Maximum message length.",
+												"default": 70,
 												"type": "number"
 											}
 										}
 									}
 								}
-							},
-							"filter": {
-								"type": "object"
 							}
 						}
 					}
 				},
-				"required": ["key", "message", "type"]
+				"required": ["key", "type"]
 			}
+		},
+		"validateCommitBadWords": {
+			"description": "Check commit message for bad words",
+			"default": true,
+			"type": "boolean"
 		},
 		"badWordsOptions": {
 			"description": "Bad words validation options.",
@@ -286,45 +411,55 @@
 			"type": "object",
 			"properties": {
 				"checkHasProfaneWords": {
+					"description": "Check has profane words in the message.",
+					"default": true,
 					"type": "boolean"
 				},
 				"clearMessage": {
+					"description": "Clear message from profane words.",
+					"default": true,
 					"type": "boolean"
 				},
 				"replaceProfaneWords": {
+					"description": "Replace profane words in the message on placeholder.",
+					"default": true,
 					"type": "boolean"
 				},
 				"options": {
+					"description": "Bad words validation options.",
+					"default": {},
 					"type": "object",
 					"properties": {
 						"additionalBlockWords": {
+							"description": "List of bad words to block.",
+							"default": ["fuck"],
 							"type": "array",
 							"items": {
 								"type": "string"
 							}
 						},
 						"excludedWords": {
+							"description": "A list of words that do not need to be blocked, even if they are in the blocklist.",
+							"default": ["fool"],
 							"type": "array",
 							"items": {
 								"type": "string"
 							}
 						},
 						"placeholder": {
+							"description": "A character or string that replaces bad words.",
+							"default": "*",
 							"type": "string"
 						},
 						"overrideBlockWords": {
+							"description": "Redefine the list of bad words.",
+							"default": false,
 							"type": "boolean"
 						}
 					}
 				}
 			}
-		},
-		"validateCommitBadWords": {
-			"description": "Check commit message for bad words",
-			"default": true,
-			"type": "boolean"
 		}
 	},
-	"required": ["template"],
 	"$schema": "http://json-schema.org/draft-07/schema#"
 }

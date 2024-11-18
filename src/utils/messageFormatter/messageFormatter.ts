@@ -1,7 +1,7 @@
 import { compile } from 'handlebars';
 
 import type { Entries } from '@/types/helpers';
-import type { PromptAnswers } from '@/types/modules/prompt';
+import { isObject } from '@/helpers/typeGuards';
 
 interface MessageFormatterOptions {
 	defaultEmptyValue?: string;
@@ -9,9 +9,9 @@ interface MessageFormatterOptions {
 	trimWhitespace?: boolean;
 }
 
-interface FormatMessageProps {
+interface FormatMessageProps<T> {
 	template: string;
-	data: PromptAnswers;
+	data: T;
 	options?: MessageFormatterOptions;
 }
 
@@ -29,7 +29,11 @@ interface FormatMessageProps {
  *
  * @returns {string} - The formatted message string.
  */
-export const messageFormatter = ({ template, data, options = {} }: FormatMessageProps): string => {
+export const messageFormatter = <T>({ template, data, options = {} }: FormatMessageProps<T>): string => {
+	if (!data || !isObject(data)) {
+		return '';
+	}
+
 	const { defaultEmptyValue = '', removeEmptyFields = true, trimWhitespace = true } = options;
 
 	// Preparation of the function template.
@@ -38,13 +42,14 @@ export const messageFormatter = ({ template, data, options = {} }: FormatMessage
 	// Data preparation based on options.
 	const processedData = (Object.entries(data) as Entries<typeof data>).reduce((acc, [key, value]) => {
 		if (value || !removeEmptyFields) {
-			const preparedValue = trimWhitespace ? value?.trim() : value;
+			// Check if value is a string before calling .trim()
+			const preparedValue = trimWhitespace && typeof value === 'string' ? value.trim() : value;
 
-			acc[key] = preparedValue || defaultEmptyValue;
+			acc[key as keyof T] = (preparedValue || defaultEmptyValue) as NonNullable<T[keyof T]>;
 		}
 
 		return acc;
-	}, {} as Partial<PromptAnswers>);
+	}, {} as Partial<T>);
 
 	// Compilation and application of the template.
 	return compiledTemplate(processedData);

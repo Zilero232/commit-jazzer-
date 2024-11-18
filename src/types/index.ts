@@ -1,11 +1,10 @@
 import type Inquirer from 'inquirer';
 
-import type { BadWordFilterOptions } from '../../lib/BadWordFilter/types/index';
-
 import type { CommitFieldsValues, CommitType } from './modules/commit';
 import type { CommitActionNames } from './modules/actions';
-import type { PromptQuestion } from './modules/prompt';
+import type { BaseQuestionsOptions } from './modules/prompt';
 import type { LanguageValues } from './modules/language';
+import type { BadWordsOptions } from './modules/badWords';
 
 // Define Inquirer types.
 export type TypeInquirer = typeof Inquirer;
@@ -13,20 +12,12 @@ export type TypeInquirer = typeof Inquirer;
 // Define commit function type.
 export type ICommitFunc = (commitMessage: string) => void;
 
-// Define bad words options.
-export interface BadWordsOptions {
-	checkHasProfaneWords?: boolean;
-	clearMessage?: boolean;
-	replaceProfaneWords?: boolean;
-	options?: BadWordFilterOptions;
-}
-
 // Define commit jazzer prompter commitizen options.
 export interface CommitJazzerPrompterOptions {
 	/**
 	 * Language.
 	 *
-	 * @default en
+	 * @default "en"
 	 */
 	language?: LanguageValues;
 
@@ -35,7 +26,7 @@ export interface CommitJazzerPrompterOptions {
 	 *
 	 * @default "{{type}}: {{emoji}} - {{title}}";
 	 */
-	template: string;
+	template?: string;
 
 	/**
 	 * Disable emoji.
@@ -43,20 +34,6 @@ export interface CommitJazzerPrompterOptions {
 	 * @default false
 	 */
 	disableEmoji?: boolean;
-
-	/**
-	 * Global minimum message length.
-	 *
-	 * @default 70
-	 */
-	minMessageLength?: number;
-
-	/**
-	 * Global maximum message length.
-	 *
-	 * @default 70
-	 */
-	maxMessageLength?: number;
 
 	/**
 	 * The types that will be shown in the list of type selections.
@@ -70,7 +47,7 @@ export interface CommitJazzerPrompterOptions {
 	 *
 	 * @default []
 	 */
-	availablePromptQuestions?: CommitFieldsValues[];
+	availablePromptQuestions?: (CommitFieldsValues | string)[];
 
 	/**
 	 * Can change the basic types here or add your own type.
@@ -80,18 +57,11 @@ export interface CommitJazzerPrompterOptions {
 	commitTypes?: Record<CommitFieldsValues, CommitType>;
 
 	/**
-	 * Can change the basic questions here or add your own question.
+	 * Change options of the basic questions.
 	 *
 	 * @default []
 	 */
-	promptQuestions?: PromptQuestion[];
-
-	/**
-	 * Bad words validation options.
-	 *
-	 * @default {}
-	 */
-	badWordsOptions?: BadWordsOptions;
+	baseQuestionsOptions?: BaseQuestionsOptions[];
 
 	/**
 	 * Check commit message for bad words
@@ -99,4 +69,11 @@ export interface CommitJazzerPrompterOptions {
 	 * @default true
 	 */
 	validateCommitBadWords?: boolean;
+
+	/**
+	 * Bad words validation options.
+	 *
+	 * @default {}
+	 */
+	badWordsOptions?: BadWordsOptions;
 }

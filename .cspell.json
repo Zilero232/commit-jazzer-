@@ -6,5 +6,5 @@
 	"import": ["@cspell/dict-ru_ru/cspell-ext.json"],
 	"ignoreWords": ["zilero"],
 	"useGitignore": true,
-	"words": ["splited"]
+	"words": ["splited", "Zod"]
 }

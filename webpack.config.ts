@@ -97,7 +97,7 @@ const esmConfig: Configuration = {
 };
 
 // Common plugins and optimizations for both configurations.
-const pluginsAndOptimization = (isProduction: boolean) => ({
+const pluginsAndOptimization = (isProduction: boolean, isWatchMode: boolean) => ({
 	plugins: [
 		// Scripts to run before the build.
 		new WebpackShellPluginNext({
@@ -136,6 +136,8 @@ const pluginsAndOptimization = (isProduction: boolean) => ({
 		// Output of the build progress.
 		new webpack.ProgressPlugin(),
 	],
+
+	watch: isWatchMode,
 });
 
 /**
@@ -146,18 +148,19 @@ const pluginsAndOptimization = (isProduction: boolean) => ({
  *
  * @returns {import('webpack').Configuration[]}
  */
-export default (env: Record<string, unknown>, argv: { mode: string }): Configuration[] => {
+export default (env: Record<string, unknown>, argv: { mode: string; watch: boolean }): Configuration[] => {
 	const isProduction = argv.mode === 'production';
+	const isWatchMode = argv.watch === true;
 
 	// Combining configurations for CommonJS and ESM.
 	return [
 		{
 			...cjsConfig,
-			...pluginsAndOptimization(isProduction),
+			...pluginsAndOptimization(isProduction, isWatchMode),
 		},
 		{
 			...esmConfig,
-			...pluginsAndOptimization(isProduction),
+			...pluginsAndOptimization(isProduction, isWatchMode),
 		},
 	];
 };

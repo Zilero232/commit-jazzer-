@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import type { ZodString } from 'zod';
 
-import type { PromptQuestionOptions } from '@/types/modules/prompt';
+import type { PromptQuestionOptions, PromptQuestionTypeValues } from '@/types/modules/prompt';
+import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
 
 /**
  * Creates a Zod schema based on the passed options.
@@ -10,26 +10,40 @@ import type { PromptQuestionOptions } from '@/types/modules/prompt';
  *
  * @returns {ZodString | z.ZodOptional<ZodString>} - The Zod schema.
  */
-const AnswerZodSchema = (options: PromptQuestionOptions) => {
-	let schema: ZodString | z.ZodOptional<ZodString> = z.string();
+const AnswerZodSchema = (type: PromptQuestionTypeValues, options: PromptQuestionOptions) => {
+	let schema: z.ZodString | z.ZodObject<any> = z.string();
 
 	const lengthOptions = options.validations?.length;
 
-	if (lengthOptions) {
-		// Apply the maximum length.
-		if (lengthOptions.minMessageLength) {
-			schema = schema.min(lengthOptions.minMessageLength);
-		}
+	switch (type) {
+		case PromptQuestionTypeEnum.Autocomplete:
+			schema = z.object({
+				name: z.string().min(1, 'Name is required'),
+				value: z.object({}).catchall(z.string().min(1, 'Value is required')),
+			});
 
-		// Apply the minimum length.
-		if (lengthOptions.maxMessageLength) {
-			schema = schema.max(lengthOptions.maxMessageLength);
-		}
-	}
+			break;
+		case PromptQuestionTypeEnum.MaxLengthInput:
+			if (lengthOptions) {
+				// Apply the maximum length.
+				if (lengthOptions.minMessageLength) {
+					schema = schema.min(lengthOptions.minMessageLength);
+				}
 
-	// Adding required.
-	if (!options.required) {
-		schema = schema.optional();
+				// Apply the minimum length.
+				if (lengthOptions.maxMessageLength) {
+					schema = schema.max(lengthOptions.maxMessageLength);
+				}
+			}
+
+			// Adding required.
+			if (options.required) {
+				schema = schema.min(1, 'Field cannot be empty');
+			}
+
+			break;
+		default:
+			throw new Error(`Unsupported question type: ${type}`);
 	}
 
 	return schema;

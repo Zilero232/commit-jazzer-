@@ -1,0 +1,62 @@
+name: Integration
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x, 20.x]
+
+    steps:
+      - name: Cache Node modules
+        id: yarn-cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn
+
+  eslint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Eslint checks
+        run: yarn lint:check
+
+  knip:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Knip checks
+        run: yarn knip
+
+  spell:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Spell checks
+        run: yarn cspell
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Build
+        run: yarn build:prod

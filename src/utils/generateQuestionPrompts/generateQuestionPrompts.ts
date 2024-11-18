@@ -1,31 +1,67 @@
-import Fuse from 'fuse.js';
+import { translations } from '@/translations';
 
-import type { CommitJazzerPrompterOptions } from '@/types/index';
-import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
+import { createAutocompleteSource } from '@/utils';
 
 import AnswerZodSchema from '@/schema/AnswerZodSchema';
 
 import generateErrorReport from '@/helpers/generateErrorReport';
+import { isObject } from '@/helpers/typeGuards';
 
+import type { CommitJazzerPrompterOptions } from '@/types/index';
+import type { BaseQuestionsOptions, PromptQuestions, PromptQuestionTypeValues } from '@/types/modules/prompt';
+import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
+import { CommitFieldsEnum } from '@/types/modules/commit';
+
+import DEFAULT_QUESTIONS from '@/config/defaultQuestions';
 import DEFAULT_COMMIT_TYPES from '@/constants/emojiCommit';
 
-interface GenerateQuestionPromptsProps extends Pick<CommitJazzerPrompterOptions, 'promptQuestions' | 'availableCommitTypes'> {}
+interface GenerateQuestionPromptsProps extends Pick<CommitJazzerPrompterOptions, 'language' | 'baseQuestionsOptions'> {}
 
-export const generateQuestionPrompts = async ({ promptQuestions }: GenerateQuestionPromptsProps) => {
-	if (!promptQuestions) {
-		return [];
-	}
+export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }: GenerateQuestionPromptsProps) => {
+	const promptQuestions: PromptQuestions[] = [];
+
+	// If language is set, update the default questions.
+	const CURRENT_TRANSLATIONS = language ? translations[language] : [];
+
+	// Generate default questions.
+	DEFAULT_QUESTIONS.forEach((question) => {
+		const { key } = question;
+
+		let questionOptions = {
+			...question,
+		};
+
+		// If there are override options for the question, apply them.
+		if (baseQuestionsOptions) {
+			const overrideOptions = baseQuestionsOptions.find((option: BaseQuestionsOptions) => option.key === key);
+
+			if (overrideOptions) {
+				questionOptions = {
+					...questionOptions,
+					...overrideOptions,
+				};
+			}
+		}
+
+		// If there is a override translation for the question, apply it.
+		if (isObject(CURRENT_TRANSLATIONS) && key in CURRENT_TRANSLATIONS) {
+			questionOptions.message = CURRENT_TRANSLATIONS[key];
+		}
+
+		// Add the question to the promptQuestions array.
+		promptQuestions.push(questionOptions);
+	});
 
 	const questions = promptQuestions.map(({ type, key, message, options = {} }) => {
-		const { skip } = options;
+		const { skip = false, validations = {} } = options;
 
 		// Creating a Zod scheme based on the passed options.
-		const schema = AnswerZodSchema(options);
+		const schema = AnswerZodSchema(type as PromptQuestionTypeValues, options);
 
-		const promptQuestion = {
+		const promptQuestion: Record<string, unknown> = {
 			type,
 			name: key,
-			when: skip,
+			when: !skip,
 			message,
 			validate: async (input: string): Promise<boolean> => {
 				// Checking the Zod scheme.
@@ -43,37 +79,32 @@ export const generateQuestionPrompts = async ({ promptQuestions }: GenerateQuest
 			},
 		};
 
+		// If this is type = autocomplete, then add the source function for the search.
 		if (type === PromptQuestionTypeEnum.Autocomplete) {
-			const commitTypesFuse = new Fuse(DEFAULT_COMMIT_TYPES, {
-				shouldSort: true,
-				threshold: 0.4,
-				location: 0,
-				distance: 100,
-				minMatchCharLength: 1,
-				keys: ['name', 'code', 'description'],
-			});
+			switch (key) {
+				case CommitFieldsEnum.ActionType:
+					promptQuestion.source = createAutocompleteSource({
+						data: DEFAULT_COMMIT_TYPES,
+						keys: ['name', 'code', 'description'],
+						formatOptions: {
+							templateShowFormat: '{{name}} - {{description}} {{emoji}}',
+							templateValueFormat: {
+								type: 'name',
+								emoji: 'emoji',
+							},
+						},
+					});
 
-			// @ts-expect-error
-			promptQuestion.source = (_: unknown, query: string) => {
-				// If the query is empty, we return the default list.
-				if (!query) {
-					return DEFAULT_COMMIT_TYPES;
-				}
+					break;
+				default:
+					throw new Error(`Unknown key: ${key}`);
+			}
+		}
 
-				try {
-					// Performing a search with filtering.
-					const results = commitTypesFuse.search(query);
-
-					return results.map(match => ({
-						name: `${match.item.emoji} ${match.item.name} - ${match.item.description}`,
-						value: match.item.name,
-					}));
-				} catch (error) {
-					console.error('Error during search or sorting:', error);
-
-					return DEFAULT_COMMIT_TYPES;
-				}
-			};
+		// If this is type = maxlength-input, then add the min and max length options.
+		if (type === PromptQuestionTypeEnum.MaxLengthInput) {
+			promptQuestion.minLength = validations?.length?.minMessageLength || 0;
+			promptQuestion.maxLength = validations?.length?.maxMessageLength || 70;
 		}
 
 		return promptQuestion;

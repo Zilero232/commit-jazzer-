@@ -1,36 +1,33 @@
 import { z } from 'zod';
 import type { ZodType } from 'zod';
 
-import type { PromptQuestion } from '@/types/modules/prompt';
+import type { BaseQuestionsOptions, PromptQuestionOptions } from '@/types/modules/prompt';
 
-import { ZCommitFields, ZQuestionTypes } from './modules/ZodEnums';
+import { ZCommitFields } from './modules/ZodEnums';
 
-// Define prompt question type with updated key type.
-export interface ZodPromptQuestion extends Omit<PromptQuestion, 'type' | 'key'> {
-	type: string;
+// Define prompt question type for base questions.
+export interface ZodBaseQuestionsOptions extends Omit<BaseQuestionsOptions, 'key'> {
 	key: string;
 }
 
-const QuestionZodSchema: ZodType<ZodPromptQuestion> = z.object({
-	type: ZQuestionTypes,
-	key: ZCommitFields,
-	message: z.string(),
-	options: z
+const QuestionOptionsSchema: ZodType<PromptQuestionOptions> = z.object({
+	required: z.boolean().optional(),
+	skip: z.boolean().optional(),
+	validations: z
 		.object({
-			required: z.boolean().optional(),
-			skip: z.boolean().optional(),
-			validations: z
+			length: z
 				.object({
-					length: z
-						.object({
-							minMessageLength: z.number().optional(),
-							maxMessageLength: z.number().optional(),
-						})
-						.optional(),
+					minMessageLength: z.number().optional(),
+					maxMessageLength: z.number().optional(),
 				})
 				.optional(),
 		})
 		.optional(),
 });
 
-export default QuestionZodSchema;
+// Schema for base prompt questions.
+export const BaseQuestionsOptionsSchema: ZodType<ZodBaseQuestionsOptions> = z.object({
+	key: ZCommitFields,
+	message: z.string().optional(),
+	options: QuestionOptionsSchema.optional(),
+});

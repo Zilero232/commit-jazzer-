@@ -29,9 +29,11 @@ export default antfu(
 			'antfu/curly': 'off',
 			'antfu/brace-style': 'off',
 
+			'no-console': 'warn',
+
 			'test/prefer-lowercase-title': 'off',
 
-			'no-console': 'warn',
+			'style/brace-style': 'off',
 
 			'ts/strict-boolean-expressions': 'off',
 		},

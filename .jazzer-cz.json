@@ -2,7 +2,6 @@
 	"$schema": "./public/schema.json",
 	"language": "ru",
 	"disableEmoji": false,
-	"template": "{{type}}: {{emoji}} - {{title}}",
 	"availableCommitTypes": ["init", "fix", "refactor", "docs", "remove", "test"],
 	"availablePromptQuestions": ["type", "title"]
 }
