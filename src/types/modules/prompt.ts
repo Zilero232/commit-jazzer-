@@ -1,4 +1,4 @@
-import { CommitFieldsEnum, CommitFieldsValues } from './commit';
+import type { CommitFieldsValues } from './commit';
 
 // Define prompt question types.
 export enum PromptQuestionTypeEnum {
@@ -10,7 +10,7 @@ export enum PromptQuestionTypeEnum {
 export type PromptQuestionTypeValues = `${PromptQuestionTypeEnum}`;
 
 // Define base interface question.
-export interface BaseInterfaceQuestion {
+interface BaseInterfaceQuestion {
 	/**
 	 * Question message.
 	 *
@@ -98,5 +98,4 @@ type CommitFieldsWithoutActionType = Exclude<CommitFieldsValues, 'type'>;
 // Define prompt answers type.
 export type PromptAnswers = {
 	readonly [key in CommitFieldsWithoutActionType]?: string;
-	readonly [CommitFieldsEnum.ActionType]?: number;
-}
+};

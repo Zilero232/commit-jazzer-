@@ -1,5 +1,7 @@
 import { messageFormatter } from '@/utils';
 
+import LOG_MESSAGES from '@/constants/logMessages';
+
 interface CreateFormattedOptionsProps<T> {
 	data: T[];
 	formatOptions: {
@@ -8,6 +10,17 @@ interface CreateFormattedOptionsProps<T> {
 	};
 }
 
+/**
+ * Formats data for the select component.
+ *
+ * @param {CreateFormattedOptionsProps<T>} props - The properties required for formatting.
+ * @param {T[]} props.data - The data to be formatted.
+ * @param {CreateFormattedOptionsProps<T>['formatOptions']} props.formatOptions - The formatting options.
+ * @param {string} [props.formatOptions.templateShowFormat] - The Handlebars template string for the name.
+ * @param {Record<string, keyof T>} [props.formatOptions.templateValueFormat] - The Handlebars template string for the value with keys.
+ *
+ * @returns {Array<{name: string, value: Record<string, T[keyof T]>}>} - The formatted data.
+ */
 const createFormattedOptions = <T>({ data, formatOptions }: CreateFormattedOptionsProps<T>) => {
 	const { templateShowFormat = '', templateValueFormat = {} } = formatOptions;
 
@@ -30,7 +43,7 @@ const createFormattedOptions = <T>({ data, formatOptions }: CreateFormattedOptio
 				if (item[fieldKey]) {
 					valuesAcc[key] = item[fieldKey];
 				} else {
-					console.warn(`formatData: Missing key "${String(fieldKey)}" in item: ${JSON.stringify(item)}`);
+					LOG_MESSAGES.GENERIC_WARN(`formatData: Missing key "${String(fieldKey)}" in item: ${JSON.stringify(item)}`);
 				}
 
 				return valuesAcc;

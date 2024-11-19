@@ -4,11 +4,12 @@ import type { PromptQuestionOptions, PromptQuestionTypeValues } from '@/types/mo
 import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
 
 /**
- * Creates a Zod schema based on the passed options.
+ * Creates a Zod schema for a given prompt question type and options.
  *
- * @param {PromptQuestionOptions} options - The options for the prompt question.
+ * @param type Prompt question type.
+ * @param options Prompt question options.
  *
- * @returns {ZodString | z.ZodOptional<ZodString>} - The Zod schema.
+ * @returns Zod schema for the given prompt question.
  */
 const AnswerZodSchema = (type: PromptQuestionTypeValues, options: PromptQuestionOptions) => {
 	let schema: z.ZodString | z.ZodObject<any> = z.string();

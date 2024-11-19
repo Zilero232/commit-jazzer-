@@ -7,6 +7,7 @@ import generateErrorReport from '@/helpers/generateErrorReport';
 import { isObject } from '@/helpers/typeGuards';
 
 import { CONFIG_FILE_NAMES, COSMICONFIG_MODULE_NAME } from '@/constants/index';
+import LOG_MESSAGES from '@/constants/logMessages';
 
 import DEFAULT_CONFIGURATION from '@/config/defaultConfiguration';
 
@@ -34,7 +35,7 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 		const foundedFile = await explorer.search();
 
 		if (!foundedFile || foundedFile.isEmpty || !isObject(foundedFile)) {
-			console.warn('[ConfigLoader] No valid configuration file found. Using default configuration.');
+			LOG_MESSAGES.CONFIG_LOADER_WARN();
 
 			return DEFAULT_CONFIGURATION;
 		}
@@ -50,7 +51,7 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 				issues: parseResult.error.issues,
 			});
 
-			console.error(errorMessage);
+			LOG_MESSAGES.GENERIC_ERROR(errorMessage);
 
 			process.exit(1);
 		}
@@ -63,7 +64,7 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 			...data,
 		};
 	} catch (error: unknown) {
-		console.error(`[ConfigLoader] Unexpected error while loading configuration: ${(error as Error).message}`);
+		LOG_MESSAGES.CONFIG_LOADER_ERROR(error as Error);
 
 		process.exit(1);
 	}

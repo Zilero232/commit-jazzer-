@@ -54,6 +54,13 @@ jobs:
       - name: Run Spell checks
         run: yarn cspell
 
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Test
+        run: yarn test
+
   build:
     needs: setup
     runs-on: ubuntu-latest

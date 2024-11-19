@@ -3,7 +3,7 @@ import InquirerMaxLength from 'inquirer-maxlength-input-prompt';
 
 import { filterBadWords, generateQuestionPrompts, loadJazzerConfig, messageFormatter } from './utils';
 
-import { isString } from './helpers/typeGuards';
+import { isBoolean } from './helpers/typeGuards';
 
 import type { ICommitFunc, TypeInquirer } from './types';
 import { type PromptAnswers, PromptQuestionTypeEnum } from './types/modules/prompt';
@@ -40,11 +40,11 @@ const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc
 		// Filter the message.
 		const filteredMessage = filterBadWords({ message, configuration: configuration.badWordsOptions ?? {} });
 
-		if (isString(filteredMessage)) {
-			message = filteredMessage;
-		} else {
-			return;
+		if (isBoolean(filteredMessage)) {
+			return null;
 		}
+
+		message = filteredMessage;
 	}
 
 	// Commit the message.

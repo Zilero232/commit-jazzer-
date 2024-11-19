@@ -1,7 +1,8 @@
 import { compile } from 'handlebars';
 
-import type { Entries } from '@/types/helpers';
 import { isObject } from '@/helpers/typeGuards';
+
+import type { Entries } from '@/types/helpers';
 
 interface MessageFormatterOptions {
 	defaultEmptyValue?: string;
@@ -16,18 +17,18 @@ interface FormatMessageProps<T> {
 }
 
 /**
- * Formats a commit message by applying a given template to provided data.
+ * Formats a message using a Handlebars template and provided data.
  *
- * @param {object} props - The properties required for message formatting.
+ * @template T - The type of the data object.
+ * @param {FormatMessageProps<T>} props - The properties required for formatting the message.
  * @param {string} props.template - The Handlebars template string.
- * @param {CommitData} props.data - The data to be formatted within the template.
+ * @param {T} props.data - The data to be interpolated into the template.
+ * @param {MessageFormatterOptions} [props.options] - Optional formatting options.
+ * @param {string} [props.options.defaultEmptyValue] - The default value to use for empty fields.
+ * @param {boolean} [props.options.removeEmptyFields] - Whether to remove fields with empty values.
+ * @param {boolean} [props.options.trimWhitespace] - Whether to trim whitespace from string fields.
  *
- * @param {MessageFormatterOptions} [props.options] - Configuration options for formatting.
- * @param {string} [props.options.defaultEmptyValue] - The value to use for empty fields.
- * @param {boolean} [props.options.removeEmptyFields] - Whether to exclude empty fields from the output.
- * @param {boolean} [props.options.trimWhitespace] - Whether to trim whitespace from field values.
- *
- * @returns {string} - The formatted message string.
+ * @returns {string} - The formatted message.
  */
 export const messageFormatter = <T>({ template, data, options = {} }: FormatMessageProps<T>): string => {
 	if (!data || !isObject(data)) {

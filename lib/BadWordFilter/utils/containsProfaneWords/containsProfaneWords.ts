@@ -12,7 +12,7 @@ interface ContainsProfaneWordsProps {
  * @param {string} props.input - The input string to be checked.
  * @param {string[]} props.blocklist - The list of words to check against.
  *
- * @returns {string[]} - An array of blocklisted words found in the input string.
+ * @returns {string[]} - An array of blocklist words found in the input string.
  */
 export const containsProfaneWords = ({ input, blocklist }: ContainsProfaneWordsProps): Array<string> => {
 	// Initialize the array for the bad words found.

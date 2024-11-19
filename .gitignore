@@ -8,6 +8,8 @@ node_modules
 
 build
 
+logger
+
 # IDEs and editors
 /.idea
 .project

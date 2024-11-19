@@ -146,7 +146,7 @@ const pluginsAndOptimization = (isProduction: boolean, isWatchMode: boolean) => 
  * @param {Record<string, unknown>} env
  * @param {import('webpack').WebpackOptionsNormalized} argv
  *
- * @returns {import('webpack').Configuration[]}
+ * @returns {import('webpack').Configuration[]} - Configurations for CommonJS and ESM.
  */
 export default (env: Record<string, unknown>, argv: { mode: string; watch: boolean }): Configuration[] => {
 	const isProduction = argv.mode === 'production';

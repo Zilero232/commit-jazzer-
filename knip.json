@@ -3,6 +3,6 @@
 	"entry": "./src/index.ts",
 	"project": ["./src/**/*"],
 	"webpack": false,
-	"ignore": ["node_modules", "build", "coverage", "./src/**/*.test.ts"],
-	"ignoreDependencies": ["babel*", "@babel/*", "@types/*", "webpack*", "commitizen"]
+	"ignore": ["node_modules", "build", "coverage", "./src/helpers/typeGuards.ts", "./src/**/*.test.ts"],
+	"ignoreDependencies": ["babel*", "@types/*", "webpack*", "ts-node"]
 }

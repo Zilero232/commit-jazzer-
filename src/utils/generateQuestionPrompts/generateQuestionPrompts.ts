@@ -13,7 +13,9 @@ import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
 import { CommitFieldsEnum } from '@/types/modules/commit';
 
 import DEFAULT_QUESTIONS from '@/config/defaultQuestions';
+
 import DEFAULT_COMMIT_TYPES from '@/constants/emojiCommit';
+import LOG_MESSAGES from '@/constants/logMessages';
 
 interface GenerateQuestionPromptsProps extends Pick<CommitJazzerPrompterOptions, 'language' | 'baseQuestionsOptions'> {}
 
@@ -72,7 +74,7 @@ export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }
 						issues: parseResult.error.issues,
 					});
 
-					console.error(errorMessage);
+					LOG_MESSAGES.GENERIC_ERROR(errorMessage);
 				}
 
 				return parseResult.success;
@@ -97,7 +99,7 @@ export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }
 
 					break;
 				default:
-					throw new Error(`Unknown key: ${key}`);
+					LOG_MESSAGES.GENERIC_ERROR(`Unknown key: ${key}`);
 			}
 		}
 

@@ -1,3 +1,4 @@
+import LOG_MESSAGES from '@/constants/logMessages';
 import BadWordFilterPlugin from '@/lib/BadWordFilter';
 
 import type { BadWordsOptions } from '@/types/modules/badWords';
@@ -8,12 +9,17 @@ interface FilterBadWordsProps {
 }
 
 /**
- * Function for filtering messages with checking and clearing of forbidden words.
+ * Checks a given message for prohibited words and takes action depending on the configuration.
  *
- * @param message - The original message to be processed.
- * @param configuration - Configuration for working with the forbidden word filter.
+ * @param {FilterBadWordsProps} props - The input properties.
+ * @param {string} props.message - The message to be checked.
+ * @param {BadWordsOptions} props.configuration - The configuration for the bad words filter.
+ * @param {boolean} props.configuration.checkHasProfaneWords - Set to true to check for prohibited words.
+ * @param {boolean} props.configuration.replaceProfaneWords - Set to true to replace prohibited words with a placeholder.
+ * @param {boolean} props.configuration.clearMessage - Set to true to remove all prohibited words from the message.
+ * @param {BadWordFilterOptions} props.configuration.options - Options for the bad words filter plugin.
  *
- * @returns A filtered or cleared message, or false if forbidden words were found.
+ * @returns {string | boolean} - The processed message or false if a prohibited word is found.
  */
 export const filterBadWords = ({ message = '', configuration = {} }: FilterBadWordsProps): string | boolean => {
 	const { clearMessage, checkHasProfaneWords, replaceProfaneWords, options = {} } = configuration;
@@ -25,7 +31,7 @@ export const filterBadWords = ({ message = '', configuration = {} }: FilterBadWo
 		const foundBadWords = hasProfaneWords(message);
 
 		if (foundBadWords.length > 0) {
-			console.error(`Input contains prohibited words: ${foundBadWords.join(', ')}. Please remove them.`);
+			LOG_MESSAGES.PROHIBITED_WORDS_ERROR(foundBadWords);
 
 			// Return false if forbidden words are found.
 			return false;

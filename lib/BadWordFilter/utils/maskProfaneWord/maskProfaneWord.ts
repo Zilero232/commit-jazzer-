@@ -13,9 +13,9 @@ interface MaskProfaneWordProps extends Pick<BadWordFilterOptions, 'placeholder'>
  * @param {MaskProfaneWordProps} props - The input properties.
  * @param {string} props.input - The input string to be processed.
  * @param {string[]} props.blocklist - The list of words to be masked in the input string.
- * @param {string} props.placeholder - The string used to replace each character of a blocklisted word.
+ * @param {string} props.placeholder - The string used to replace each character of a blocklist word.
  *
- * @returns {string} - The processed string with blocklisted words masked.
+ * @returns {string} - The processed string with blocklist words masked.
  */
 export const maskProfaneWord = ({ input, blocklist, placeholder }: MaskProfaneWordProps): string => {
 	if (!input || !blocklist || !placeholder) {

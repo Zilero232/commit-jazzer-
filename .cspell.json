@@ -1,10 +1,19 @@
 {
 	"language": "en,ru",
 	"minWordLength": 3,
-	"ignorePaths": ["package.json", "renovate.json", "./cache", "./public", "./src/translations"],
+	"ignorePaths": [
+		"package.json",
+		"renovate.json",
+		"./cache",
+		"./public",
+		"./src/translations",
+		"./src/constants/emojiCommit.ts",
+		"./src/types/modules/actions.ts",
+		"./lib/BadWordFilter/constants/badWords.ts"
+	],
 	"dictionaries": ["en_US", "ru_RU"],
 	"import": ["@cspell/dict-ru_ru/cspell-ext.json"],
 	"ignoreWords": ["zilero"],
 	"useGitignore": true,
-	"words": ["splited", "Zod"]
+	"words": ["splited", "Zod", "maxlength", "esmodules", "knip"]
 }
