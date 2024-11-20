@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import type { ZodType } from 'zod';
 
-import type { BaseQuestionsOptions, PromptQuestionOptions } from '@/types/modules/prompt';
+import type { BaseQuestion, PromptQuestionOptions } from '@/types/modules/prompt';
 
 import { ZCommitFields } from './modules/ZodEnums';
 
 // Define prompt question type for base questions.
-export interface ZodBaseQuestionsOptions extends Omit<BaseQuestionsOptions, 'key'> {
+export interface ZodBaseQuestionsOptions extends Omit<BaseQuestion, 'key'> {
 	key: string;
 }
 

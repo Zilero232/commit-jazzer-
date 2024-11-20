@@ -1,6 +1,6 @@
 import { translations } from '../translations';
 
-import type { BaseQuestionsOptions, PromptQuestionTypeValues } from '@/types/modules/prompt';
+import type { BaseQuestion, PromptQuestionTypeValues } from '@/types/modules/prompt';
 import { CommitFieldsEnum } from '@/types/modules/commit';
 import { LanguageEnum, type TranslationsJson } from '@/types/modules/language';
 import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
@@ -8,7 +8,7 @@ import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
 // Define current translations.
 const CURRENT_TRANSLATIONS: TranslationsJson = translations[LanguageEnum.Russian];
 
-interface DEFAULT_QUESTIONS_INTERFACE extends BaseQuestionsOptions {
+interface DEFAULT_QUESTIONS_INTERFACE extends BaseQuestion {
 	type: PromptQuestionTypeValues;
 }
 

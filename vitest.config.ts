@@ -1,11 +1,12 @@
-import { defineConfig } from 'vitest/config';
+import { defaultExclude, defineConfig } from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
 	plugins: [tsconfigPaths({ projects: ['tsconfig.spec.json'] })],
 	test: {
 		environment: 'node',
-		include: ['tests/**/*.spec.ts'],
+		include: ['./**/*.spec.ts'],
+		exclude: [...defaultExclude],
 		maxConcurrency: 5,
 		clearMocks: true,
 		mockReset: true,

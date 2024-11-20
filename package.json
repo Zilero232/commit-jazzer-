@@ -109,5 +109,13 @@
 	},
 	"overrides": {
 		"inquirer": "8.2.6"
+	},
+	"lint-staged": {
+		"*": [
+			"yarn lint:check",
+			"yarn test",
+			"yarn knip",
+			"yarn cspell lint -c ./cspell.json --no-progress --no-summary"
+		]
 	}
 }

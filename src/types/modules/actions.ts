@@ -44,5 +44,29 @@ export enum CommitActionsEnum {
 	ARCH = 'arch',
 }
 
+// Define base commit type.
+export interface BaseCommitType {
+	/**
+	 * Emoji of the type commit.
+	 *
+	 * @default "🚀"
+	 */
+	emoji: string;
+
+	/**
+	 * Code of the emoji.
+	 *
+	 * @default ":rocket:"
+	 */
+	code: string;
+
+	/**
+	 * Description of the type commit.
+	 *
+	 * @default "Deploying application"
+	 */
+	description: string;
+}
+
 // Define commit type names.
 export type CommitActionNames = `${CommitActionsEnum}`;

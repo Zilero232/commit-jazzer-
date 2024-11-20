@@ -7,6 +7,7 @@ import { isBoolean } from './helpers/typeGuards';
 
 import type { ICommitFunc, TypeInquirer } from './types';
 import { type PromptAnswers, PromptQuestionTypeEnum } from './types/modules/prompt';
+import flattenAnswers from './helpers/flattenAnswers';
 
 const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc) => {
 	cz.prompt.registerPrompt(PromptQuestionTypeEnum.Autocomplete, inquirerPrompt);
@@ -16,11 +17,7 @@ const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc
 	const configuration = await loadJazzerConfig();
 
 	// Get the questions.
-
-	const questions = await generateQuestionPrompts({
-		language: configuration.language,
-		baseQuestionsOptions: configuration.baseQuestionsOptions,
-	});
+	const questions = await generateQuestionPrompts(configuration);
 
 	// Get the answers.
 	const answers = await cz.prompt<PromptAnswers>(questions);
@@ -28,7 +25,7 @@ const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc
 	// Get the formatted message.
 	let message = messageFormatter({
 		template: configuration.template ?? '',
-		data: answers,
+		data: flattenAnswers(answers),
 		options: {
 			removeEmptyFields: true,
 			trimWhitespace: true,

@@ -9,23 +9,7 @@ export enum PromptQuestionTypeEnum {
 // Define prompt question type values.
 export type PromptQuestionTypeValues = `${PromptQuestionTypeEnum}`;
 
-// Define base interface question.
-interface BaseInterfaceQuestion {
-	/**
-	 * Question message.
-	 *
-	 * @default "For example message"
-	 */
-	message?: string;
-
-	/**
-	 * Question options.
-	 *
-	 * @default {}
-	 */
-	options?: PromptQuestionOptions;
-}
-
+// Define prompt question options.
 export interface PromptQuestionOptions {
 	/**
 	 * Required question.
@@ -65,8 +49,25 @@ export interface PromptQuestionOptions {
 	};
 }
 
-// Define prompt question.
-export interface BaseQuestionsOptions extends BaseInterfaceQuestion {
+// Define base interface question.
+interface BaseInterfaceQuestion {
+	/**
+	 * Question message.
+	 *
+	 * @default "For example message"
+	 */
+	message?: string;
+
+	/**
+	 * Question options.
+	 *
+	 * @default {}
+	 */
+	options?: PromptQuestionOptions;
+}
+
+// Define base question.
+export interface BaseQuestion extends BaseInterfaceQuestion {
 	/**
 	 * Question key.
 	 *
@@ -93,7 +94,7 @@ export interface PromptQuestions extends BaseInterfaceQuestion {
 }
 
 // Исключаем ActionType из CommitFieldsEnum
-type CommitFieldsWithoutActionType = Exclude<CommitFieldsValues, 'type'>;
+type CommitFieldsWithoutActionType = CommitFieldsValues | 'emoji';
 
 // Define prompt answers type.
 export type PromptAnswers = {

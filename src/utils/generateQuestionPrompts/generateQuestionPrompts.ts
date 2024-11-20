@@ -5,21 +5,34 @@ import { createAutocompleteSource } from '@/utils';
 import AnswerZodSchema from '@/schema/AnswerZodSchema';
 
 import generateErrorReport from '@/helpers/generateErrorReport';
+import filterCommitTypes from '@/helpers/filterCommitTypes';
 import { isObject } from '@/helpers/typeGuards';
 
 import type { CommitJazzerPrompterOptions } from '@/types/index';
-import type { BaseQuestionsOptions, PromptQuestions, PromptQuestionTypeValues } from '@/types/modules/prompt';
+import type { BaseQuestion, PromptQuestions, PromptQuestionTypeValues } from '@/types/modules/prompt';
 import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
 import { CommitFieldsEnum } from '@/types/modules/commit';
 
 import DEFAULT_QUESTIONS from '@/config/defaultQuestions';
 
-import DEFAULT_COMMIT_TYPES from '@/constants/emojiCommit';
 import LOG_MESSAGES from '@/constants/logMessages';
 
-interface GenerateQuestionPromptsProps extends Pick<CommitJazzerPrompterOptions, 'language' | 'baseQuestionsOptions'> {}
-
-export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }: GenerateQuestionPromptsProps) => {
+/**
+ * Generates an array of questions based on the provided options.
+ *
+ * @param language Language to translate the questions.
+ * @param baseQuestionsOptions Override options for the questions.
+ * @param availableCommitTypes The available commit types to filter the action type.
+ * @param availablePromptQuestions The available prompt questions to filter the questions.
+ *
+ * @returns The array of questions.
+ */
+export const generateQuestionPrompts = async ({
+	language,
+	baseQuestionsOptions,
+	availableCommitTypes = [],
+	availablePromptQuestions = [],
+}: CommitJazzerPrompterOptions) => {
 	const promptQuestions: PromptQuestions[] = [];
 
 	// If language is set, update the default questions.
@@ -29,13 +42,18 @@ export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }
 	DEFAULT_QUESTIONS.forEach((question) => {
 		const { key } = question;
 
+		// If the array is not empty and does not contain a key, skip this question.
+		if (availablePromptQuestions.length > 0 && !availablePromptQuestions.includes(key)) {
+			return;
+		}
+
 		let questionOptions = {
 			...question,
 		};
 
 		// If there are override options for the question, apply them.
 		if (baseQuestionsOptions) {
-			const overrideOptions = baseQuestionsOptions.find((option: BaseQuestionsOptions) => option.key === key);
+			const overrideOptions = baseQuestionsOptions.find((option: BaseQuestion) => option.key === key);
 
 			if (overrideOptions) {
 				questionOptions = {
@@ -86,7 +104,7 @@ export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }
 			switch (key) {
 				case CommitFieldsEnum.ActionType:
 					promptQuestion.source = createAutocompleteSource({
-						data: DEFAULT_COMMIT_TYPES,
+						data: filterCommitTypes(availableCommitTypes),
 						keys: ['name', 'code', 'description'],
 						formatOptions: {
 							templateShowFormat: '{{name}} - {{description}} {{emoji}}',
@@ -102,9 +120,8 @@ export const generateQuestionPrompts = async ({ language, baseQuestionsOptions }
 					LOG_MESSAGES.GENERIC_ERROR(`Unknown key: ${key}`);
 			}
 		}
-
 		// If this is type = maxlength-input, then add the min and max length options.
-		if (type === PromptQuestionTypeEnum.MaxLengthInput) {
+		else if (type === PromptQuestionTypeEnum.MaxLengthInput) {
 			promptQuestion.minLength = validations?.length?.minMessageLength || 0;
 			promptQuestion.maxLength = validations?.length?.maxMessageLength || 70;
 		}
