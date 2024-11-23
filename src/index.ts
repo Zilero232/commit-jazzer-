@@ -3,11 +3,11 @@ import InquirerMaxLength from 'inquirer-maxlength-input-prompt';
 
 import { filterBadWords, generateQuestionPrompts, loadJazzerConfig, messageFormatter } from './utils';
 
+import flattenAnswers from './helpers/flattenAnswers';
 import { isBoolean } from './helpers/typeGuards';
 
 import type { ICommitFunc, TypeInquirer } from './types';
 import { type PromptAnswers, PromptQuestionTypeEnum } from './types/modules/prompt';
-import flattenAnswers from './helpers/flattenAnswers';
 
 const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc) => {
 	cz.prompt.registerPrompt(PromptQuestionTypeEnum.Autocomplete, inquirerPrompt);

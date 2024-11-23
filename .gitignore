@@ -1,16 +1,33 @@
-# compiled output
+# ===========================
+# Compiled output
+# ===========================
 /coverage
 /cache
 *.log
 
-# dependencies
+# ===========================
+# Dependencies
+# ===========================
 node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
+# ===========================
+# Build output
+# ===========================
 build
 
+# ===========================
+# Logger files
+# ===========================
 logger
 
+# ===========================
 # IDEs and editors
+# ===========================
+
+# IntelliJ IDEA
 /.idea
 .project
 .classpath
@@ -19,28 +36,38 @@ logger
 .settings/
 *.sublime-workspace
 
-# Local dev files
-yarn.lock
-pnpm-lock.yaml
-.env.local
-.bashrc
-.nx
-
-# We don't commit a CHANELGELOG.md file to the repo, we only create Github releases
-CHANGELOG.md
-
-# IDE - VSCode
+# VS Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# misc
-package-lock.json
+# ===========================
+# Local development files
+# ===========================
+.env.local
+.bashrc
+.nx
+
+# ===========================
+# Miscellaneous files
+# ===========================
+CHANGELOG.md
 npm-debug.log
 yarn-error.log
 
-# System Files
+# ===========================
+# System files
+# ===========================
 .DS_Store
 Thumbs.db
+
+# ===========================
+# Temporary or OS-specific files
+# ===========================
+*.swp                # Vim swap files
+*.swo                # Vim backup files
+*.bak                # Backup files
+*~                   # Temporary files created by editors
+
