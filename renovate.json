@@ -1,9 +1,8 @@
 {
-	"$schema": "https://json.schemastore.org/renovate.json",
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["config:base"],
 	"schedule": ["every weekday"],
 	"semanticCommits": "enabled",
-	"ignorePeerDeps": true,
 	"pinVersions": false,
 	"packageRules": [
 		{
