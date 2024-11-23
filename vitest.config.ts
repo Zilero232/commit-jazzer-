@@ -1,14 +1,15 @@
-import { defaultExclude, defineConfig } from 'vitest/config';
+import { defineConfig } from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-	plugins: [tsconfigPaths({ projects: ['tsconfig.spec.json'] })],
+	plugins: [tsconfigPaths()],
 	test: {
 		environment: 'node',
 		include: ['./**/*.spec.ts'],
-		exclude: [...defaultExclude],
 		maxConcurrency: 5,
 		clearMocks: true,
+		silent: false,
+		logHeapUsage: true,
 		mockReset: true,
 		coverage: {
 			provider: 'v8',
@@ -16,8 +17,5 @@ export default defineConfig({
 			thresholds: { 100: true },
 			skipFull: true,
 		},
-		silent: false,
-		logHeapUsage: true,
-		reporters: ['default', 'html'],
 	},
 });

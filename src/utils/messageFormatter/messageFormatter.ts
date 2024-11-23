@@ -1,8 +1,6 @@
 import { compile } from 'handlebars';
 
-import { isObject } from '@/helpers/typeGuards';
-
-import type { Entries } from '@/types/helpers';
+import { isEmptyObject, isObject } from '@/helpers/typeGuards';
 
 interface MessageFormatterOptions {
 	defaultEmptyValue?: string;
@@ -31,7 +29,7 @@ interface FormatMessageProps<T> {
  * @returns {string} - The formatted message.
  */
 export const messageFormatter = <T>({ template, data, options = {} }: FormatMessageProps<T>): string => {
-	if (!data || !isObject(data)) {
+	if (!data || !isObject(data) || isEmptyObject(data)) {
 		return '';
 	}
 
@@ -41,17 +39,24 @@ export const messageFormatter = <T>({ template, data, options = {} }: FormatMess
 	const compiledTemplate = compile(template);
 
 	// Data preparation based on options.
-	const processedData = (Object.entries(data) as Entries<typeof data>).reduce((acc, [key, value]) => {
+	const processedData = (Object.entries(data) as [keyof T, T[keyof T]][]).reduce((acc, [key, value]) => {
 		if (value || !removeEmptyFields) {
 			// Check if value is a string before calling .trim()
 			const preparedValue = trimWhitespace && typeof value === 'string' ? value.trim() : value;
 
-			acc[key as keyof T] = (preparedValue || defaultEmptyValue) as NonNullable<T[keyof T]>;
+			acc[key] = (preparedValue || defaultEmptyValue) as NonNullable<T[keyof T]>;
 		}
 
 		return acc;
 	}, {} as Partial<T>);
 
 	// Compilation and application of the template.
-	return compiledTemplate(processedData);
+	let message = compiledTemplate(processedData);
+
+	// Trim whitespace.
+	if (trimWhitespace) {
+		message = message.trim();
+	}
+
+	return message;
 };

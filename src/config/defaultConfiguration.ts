@@ -14,8 +14,8 @@ const DEFAULT_CONFIGURATION: CommitJazzerPrompterOptions = {
 	validateCommitBadWords: true,
 	badWordsOptions: {
 		checkHasProfaneWords: true,
-		clearMessage: true,
-		replaceProfaneWords: true,
+		replaceProfaneWords: false,
+		clearMessage: false,
 	},
 };
 

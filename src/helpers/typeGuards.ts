@@ -54,3 +54,14 @@ export const isArray = <T = unknown>(value: unknown): value is T[] => {
 export const isObject = (value: unknown): value is Record<string, unknown> => {
 	return typeof value === 'object' && !isArray(value);
 };
+
+/**
+ * Checks if given value is an empty object.
+ *
+ * @param {unknown} value - value to check.
+ *
+ * @returns {value is Record<string, unknown>} whether value is an empty object or not.
+ */
+export const isEmptyObject = (value: unknown): value is Record<string, unknown> => {
+	return isObject(value) && Object.keys(value).length === 0;
+};

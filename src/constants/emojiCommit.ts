@@ -1,7 +1,7 @@
 import type { BaseCommitType, CommitActionNames } from '@/types/modules/actions';
 import { CommitActionsEnum } from '@/types/modules/actions';
 
-export interface CommitTypes extends BaseCommitType {
+interface CommitTypes extends BaseCommitType {
 	/**
 	 * Title of the type commit.
 	 *

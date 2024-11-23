@@ -6,7 +6,7 @@ import { LanguageEnum, type TranslationsJson } from '@/types/modules/language';
 import { PromptQuestionTypeEnum } from '@/types/modules/prompt';
 
 // Define current translations.
-const CURRENT_TRANSLATIONS: TranslationsJson = translations[LanguageEnum.Russian];
+const CURRENT_TRANSLATIONS: Partial<TranslationsJson> = translations[LanguageEnum.Russian];
 
 interface DEFAULT_QUESTIONS_INTERFACE extends BaseQuestion {
 	type: PromptQuestionTypeValues;

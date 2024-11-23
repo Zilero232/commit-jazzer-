@@ -1,7 +1,9 @@
 {
 	"language": "en,ru",
+	"files": ["**/*.{ts,tsx,js,jsx}"],
 	"minWordLength": 3,
 	"ignorePaths": [
+		"**/*spec.*",
 		"package.json",
 		"renovate.json",
 		"./cache",

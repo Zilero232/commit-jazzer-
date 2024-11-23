@@ -18,14 +18,15 @@ import DEFAULT_QUESTIONS from '@/config/defaultQuestions';
 import LOG_MESSAGES from '@/constants/logMessages';
 
 /**
- * Generates an array of questions based on the provided options.
+ * Generate questions for the commit prompter based on the given options.
  *
- * @param language Language to translate the questions.
- * @param baseQuestionsOptions Override options for the questions.
- * @param availableCommitTypes The available commit types to filter the action type.
- * @param availablePromptQuestions The available prompt questions to filter the questions.
+ * @param {CommitJazzerPrompterOptions} options - Options for generating the questions.
+ * @param {string} options.language - The language to use for the translations.
+ * @param {BaseQuestion[]} options.baseQuestionsOptions - Override options for the default questions.
+ * @param {string[]} options.availableCommitTypes - The available commit types to use for the action type question.
+ * @param {string[]} options.availablePromptQuestions - The available questions to include in the prompter.
  *
- * @returns The array of questions.
+ * @returns {Promise<PromptQuestions[]>} - The generated questions.
  */
 export const generateQuestionPrompts = async ({
 	language,
@@ -64,7 +65,7 @@ export const generateQuestionPrompts = async ({
 		}
 
 		// If there is a override translation for the question, apply it.
-		if (isObject(CURRENT_TRANSLATIONS) && key in CURRENT_TRANSLATIONS) {
+		if (!questionOptions.message && isObject(CURRENT_TRANSLATIONS) && key in CURRENT_TRANSLATIONS) {
 			questionOptions.message = CURRENT_TRANSLATIONS[key];
 		}
 

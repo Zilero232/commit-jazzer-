@@ -1,5 +1,6 @@
-import LOG_MESSAGES from '@/constants/logMessages';
 import BadWordFilterPlugin from '@/lib/BadWordFilter';
+
+import LOG_MESSAGES from '@/constants/logMessages';
 
 import type { BadWordsOptions } from '@/types/modules/badWords';
 

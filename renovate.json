@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/renovate.json",
 	"extends": ["config:base"],
 	"schedule": ["every day"],
-	"semanticCommits": true,
+	"semanticCommits": "enabled",
 	"ignorePeerDeps": true,
 	"pinVersions": false,
 	"packageRules": [
@@ -17,7 +17,7 @@
 	],
 	"devDependencies": {
 		"automerge": true,
-		"pinVersions": true
+		"pinVersions": false
 	},
-	"commitMessageAction": "🤖 Update"
+	"commitMessageAction": "🤖 Update dependencies"
 }

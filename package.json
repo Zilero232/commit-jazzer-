@@ -48,7 +48,6 @@
 		"watch": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode development --watch",
 		"build:dev": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode development",
 		"build:prod": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode production",
-		"husky:prepare": "husky install",
 		"lint:check": "yarn eslint",
 		"lint:fix": "yarn eslint --fix",
 		"test": "vitest run -c ./vitest.config.ts",
@@ -56,7 +55,8 @@
 		"generate-schema": "node --import=./scripts/register-ts-node.js ./scripts/generate-schema.ts",
 		"commit": "yarn git-cz",
 		"knip": "knip -c ./knip.json -t ./tsconfig.json",
-		"cspell": "cspell lint -c ./.cspell.json --gitignore --cache --cache-location ./cache/cspellcache **"
+		"cspell": "cspell lint -c ./.cspell.json --gitignore --cache --cache-location ./cache/cspellcache",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"commitizen": "^4.3.1",
@@ -111,11 +111,10 @@
 		"inquirer": "8.2.6"
 	},
 	"lint-staged": {
-		"*": [
+		"*.{ts,tsx,js,jsx}": [
 			"yarn lint:check",
 			"yarn test",
-			"yarn knip",
-			"yarn cspell lint -c ./cspell.json --no-progress --no-summary"
+			"yarn cspell"
 		]
 	}
 }

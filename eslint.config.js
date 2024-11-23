@@ -10,7 +10,9 @@ export default antfu(
 		typescript: {
 			tsconfigPath: 'tsconfig.json',
 		},
-		formatters: true,
+		formatters: {
+			markdown: false,
+		},
 		stylistic: {
 			indent: 'tab',
 			semi: true,
@@ -19,7 +21,7 @@ export default antfu(
 		},
 
 		// Ignored files and folders.
-		ignores: ['node_modules', '**/build/**', '**/dist/**', '**/coverage/**'],
+		ignores: ['node_modules', '**/build/**', '**/dist/**', '**/coverage/**', '**/*.md'],
 	},
 	{
 		name: '@zilero/rewrite',
@@ -39,6 +41,7 @@ export default antfu(
 		},
 	},
 	{
+		// Overriding for imports.
 		name: '@zilero/imports',
 		rules: {
 			'sort-imports': 'off',
