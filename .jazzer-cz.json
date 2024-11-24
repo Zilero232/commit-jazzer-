@@ -1,7 +1,14 @@
 {
 	"$schema": "./public/schema.json",
 	"language": "ru",
-	"disableEmoji": false,
 	"availableCommitTypes": ["init", "fix", "refactor", "docs", "remove", "test"],
-	"availablePromptQuestions": ["type", "title"]
+	"availablePromptQuestions": ["type", "title"],
+	"badWordsOptions": {
+		"clearMessage": true,
+		"options": {
+			"additionalBlockWords": ["bogdan", "dasdasd", "asdadas"],
+			"overrideBlockWords": true,
+			"excludedWords": ["fool"]
+		}
+	}
 }

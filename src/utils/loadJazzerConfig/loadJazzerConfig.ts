@@ -62,6 +62,14 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 		return {
 			...DEFAULT_CONFIGURATION,
 			...data,
+			badWordsOptions: {
+				...DEFAULT_CONFIGURATION.badWordsOptions,
+				...data.badWordsOptions,
+				options: {
+					...DEFAULT_CONFIGURATION?.badWordsOptions?.options,
+					...data.badWordsOptions?.options,
+				},
+			},
 		};
 	} catch (error: unknown) {
 		LOG_MESSAGES.CONFIG_LOADER_ERROR(error as Error);

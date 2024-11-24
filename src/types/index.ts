@@ -39,13 +39,6 @@ export interface CommitJazzerPrompterOptions {
 	template?: string;
 
 	/**
-	 * Disable emoji.
-	 *
-	 * @default false
-	 */
-	disableEmoji?: boolean;
-
-	/**
 	 * The types that will be shown in the list of type selections.
 	 *
 	 * @default []

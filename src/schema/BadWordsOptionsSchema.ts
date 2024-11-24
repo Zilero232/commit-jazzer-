@@ -9,7 +9,7 @@ const BadWordsOptionsSchema: ZodType<BadWordsOptions> = z.object({
 	replaceProfaneWords: z.boolean().optional(),
 	options: z
 		.object({
-			additionalWords: z.array(z.string()).optional(),
+			additionalBlockWords: z.array(z.string()).optional(),
 			excludedWords: z.array(z.string()).optional(),
 			placeholder: z.string().optional(),
 			overrideBlockWords: z.boolean().optional(),

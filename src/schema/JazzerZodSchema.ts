@@ -27,7 +27,6 @@ type CommitJazzerZodOptions = OmitCommitJazzerPrompterOptions & {
 const CommitJazzerPrompterOptionsSchema: ZodType<CommitJazzerZodOptions> = z.object({
 	language: ZLanguage.optional(),
 	template: z.string().optional(),
-	disableEmoji: z.boolean().optional(),
 	availableCommitTypes: z.array(ZCommitActionType).optional(),
 	availablePromptQuestions: z.array(z.string()).optional(),
 	commitTypes: CommitTypesZodSchema.optional(),

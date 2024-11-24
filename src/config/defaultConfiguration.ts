@@ -10,7 +10,6 @@ const BASE_TEMPLATE_FORMAT = `{{${CommitFieldsEnum.ActionType}}}: {{emoji}} - {{
 const DEFAULT_CONFIGURATION: CommitJazzerPrompterOptions = {
 	language: LanguageEnum.English,
 	template: BASE_TEMPLATE_FORMAT,
-	disableEmoji: false,
 	validateCommitBadWords: true,
 	badWordsOptions: {
 		checkHasProfaneWords: true,

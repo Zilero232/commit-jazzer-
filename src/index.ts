@@ -9,9 +9,9 @@ import { isBoolean } from './helpers/typeGuards';
 import type { ICommitFunc, TypeInquirer } from './types';
 import { type PromptAnswers, PromptQuestionTypeEnum } from './types/modules/prompt';
 
-const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc) => {
-	cz.prompt.registerPrompt(PromptQuestionTypeEnum.Autocomplete, inquirerPrompt);
-	cz.prompt.registerPrompt(PromptQuestionTypeEnum.MaxLengthInput, InquirerMaxLength);
+const CommitJazzerPrompter = async ({ registerPrompt, prompt }: TypeInquirer, commitMessage: ICommitFunc) => {
+	registerPrompt(PromptQuestionTypeEnum.Autocomplete, inquirerPrompt);
+	registerPrompt(PromptQuestionTypeEnum.MaxLengthInput, InquirerMaxLength);
 
 	// Load the configuration.
 	const configuration = await loadJazzerConfig();
@@ -20,11 +20,11 @@ const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc
 	const questions = await generateQuestionPrompts(configuration);
 
 	// Get the answers.
-	const answers = await cz.prompt<PromptAnswers>(questions);
+	const answers = await prompt<PromptAnswers>(questions);
 
 	// Get the formatted message.
 	let message = messageFormatter({
-		template: configuration.template ?? '',
+		template: configuration?.template ?? '',
 		data: flattenAnswers(answers),
 		options: {
 			removeEmptyFields: true,
@@ -33,9 +33,9 @@ const CommitJazzerPrompter = async (cz: TypeInquirer, commitMessage: ICommitFunc
 	});
 
 	// Check if bad words should be filtered.
-	if (configuration.validateCommitBadWords) {
+	if (configuration?.validateCommitBadWords) {
 		// Filter the message.
-		const filteredMessage = filterBadWords({ message, configuration: configuration.badWordsOptions ?? {} });
+		const filteredMessage = filterBadWords({ message, configuration: configuration?.badWordsOptions ?? {} });
 
 		if (isBoolean(filteredMessage)) {
 			return null;

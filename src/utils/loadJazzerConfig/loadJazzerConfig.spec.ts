@@ -100,7 +100,17 @@ describe('loadJazzerConfig', async () => {
 	});
 
 	it('should return merged configuration when valid config is found', async () => {
-		const mockConfig = { language: 'gr', disableEmoji: true };
+		const mockConfig = {
+			language: 'gr',
+			badWordsOptions: {
+				checkHasProfaneWords: false,
+				clearMessage: false,
+				replaceProfaneWords: false,
+				options: {
+					additionalBlockWords: ['bad', 'word'],
+				},
+			},
+		};
 
 		mockCosmiconfig.mockReturnValue({
 			search: vi.fn().mockResolvedValueOnce({
