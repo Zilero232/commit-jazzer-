@@ -60,6 +60,9 @@
 		"cspell": "cspell lint -c ./.cspell.json --gitignore --cache --cache-location ./cache/cspellcache",
 		"prepare": "husky"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"dependencies": {
 		"commitizen": "^4.3.1",
 		"cosmiconfig": "^9.0.0",
