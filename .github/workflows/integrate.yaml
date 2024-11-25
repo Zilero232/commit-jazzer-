@@ -34,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-        # Step to set up Node.js with the version from the matrix.
+      # Step to set up Node.js with the version from the matrix.
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
