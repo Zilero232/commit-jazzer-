@@ -6,6 +6,11 @@
 *.log
 
 # ===========================
+# Schema config
+# ===========================
+commit-jazzer-schema.json
+
+# ===========================
 # Dependencies
 # ===========================
 node_modules
@@ -49,6 +54,7 @@ logger
 .env.local
 .bashrc
 .nx
+.
 
 # ===========================
 # Miscellaneous files

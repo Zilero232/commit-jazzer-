@@ -34,13 +34,17 @@
 		}
 	},
 	"main": "./build/common/index.cjs",
+	"bin": {
+		"git-jazzer": "./bin/git-cz"
+	},
+	"files": [
+		"build/",
+		"commit-jazzer-schema.json"
+	],
 	"config": {
 		"commitizen": {
 			"path": "./build/common/index.cjs"
 		}
-	},
-	"bin": {
-		"git-jazzer": "./bin/git-cz"
 	},
 	"engines": {
 		"node": ">=14.17.6"
@@ -48,7 +52,7 @@
 	"scripts": {
 		"watch": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode development --watch",
 		"build:dev": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode development",
-		"build:prod": "node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode production",
+		"build:prod": "yarn generate-schema && node --import=./scripts/register-ts-node.js ./node_modules/webpack-cli/bin/cli.js -c ./webpack.config.ts --mode production && yarn generate-schema",
 		"lint:check": "yarn eslint",
 		"lint:fix": "yarn eslint --fix",
 		"test": "vitest run -c ./vitest.config.ts",

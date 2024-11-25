@@ -8,7 +8,6 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import nodeExternals from 'webpack-node-externals';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import WebpackShellPluginNext from 'webpack-shell-plugin-next';
-import CopyPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -120,9 +119,9 @@ const pluginsAndOptimization = (isProduction: boolean, isWatchMode: boolean) => 
 		...(isProduction
 			? [
 					// Copying static files.
-					new CopyPlugin({
-						patterns: [{ from: 'public', to: './' }],
-					}),
+					// new CopyPlugin({
+					// 	patterns: [{ from: 'public', to: './' }],
+					// }),
 				]
 			: [
 					// Output of the bundle size report.
