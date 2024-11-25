@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"homepage": "https://github.com/Zilero232/commit-jazzer#readme",
 	"repository": {
-		"url": "https://github.com/Zilero232/commit-jazzer"
+		"url": "git+https://github.com/Zilero232/commit-jazzer.git"
 	},
 	"bugs": {
 		"url": "https://github.com/Zilero232/commit-jazzer/issues"
@@ -34,9 +34,6 @@
 		}
 	},
 	"main": "./build/common/index.cjs",
-	"bin": {
-		"git-jazzer": "./bin/git-cz"
-	},
 	"files": [
 		"build/",
 		"commit-jazzer-schema.json"
