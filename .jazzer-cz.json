@@ -1,7 +1,7 @@
 {
-	"$schema": "./public/schema.json",
+	"$schema": "./commit-jazzer-schema.json",
 	"language": "ru",
-	"availableCommitTypes": ["init", "fix", "refactor", "docs", "remove", "test"],
+	"availableCommitTypes": ["init", "fix", "refactor", "docs", "remove", "test", "breaking"],
 	"availablePromptQuestions": ["type", "title"],
 	"badWordsOptions": {
 		"clearMessage": true,
