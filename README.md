@@ -15,31 +15,64 @@
   	</a>
 </p>
 
+> **Commitizen adapter** for formatting commit messages with style and rhythm. 🎸🎤
+
 🎸 Add style and rhythm to your commits! With commit-jazzer, every commit becomes more than just a message—it's a true masterpiece. Follow best practices and format your messages with emojis that add fun and professionalism to your development process.
 
-## Description
+## Table of Contents
 
-`commit-jazzer` is a tool that brings style and a musical vibe to your Git commits. Built on the idea of Commitizen, it helps you format commit messages using conventions and add engaging emojis. Instead of simply writing text messages, you'll be able to choose commit types and descriptions, turning the process into something more than just adhering to standards.
+1. [🎥 Demo](#🎥-demo)
+2. [🔍 Description](#🔍-description)
+3. [⚡ Features](#⚡-features)
+4. [💻 Installation and Usage](#💻-installation-and-usage)
+5. [⚙️ Configuration](#⚙️-configuration)
+6. [🤝 Contributing](#🤝-contributing)
+7. [📜 Code of Conduct](#📜-code-of-conduct)
+8. [🔒 Security Policy](#🔒-security-policy)
+9. [👥 Team](#👥-team)
+10. [📄 License](#📄-license)
 
-Jazzer is a reference to jazz music, where it's not just about structure, but also improvisation and creativity. With commit-jazzer, your commits become as dynamic as a musical composition.
+## Demo
 
-## Features
+![commit-jazzer](public/commit-demo.gif)
 
-- 🎶 **Musical commit messages**: Format your commits with emojis like 🎸, 🐛, 💄, and more.
-- ⚡ **Quick setup**: Easy installation and integration into your project.
-- 🎼 **Commit types**: Choose from predefined types and descriptions that align with commit conventions.
-- 🛠 **Bad word handling**: commit-jazzer automatically handles undesirable words in commit messages and helps you avoid inappropriate expressions.
-- 🔧 **Configuration flexibility**: You can create your own configuration files and type schemes for commits.
+## 🔍 Description
 
-## Installation
+**`commit-jazzer`** is a tool that introduces a touch of musical flair into your Git commit messages. Built on the solid foundation of Commitizen, it allows you to follow commit conventions and spice up your messages with emojis. Instead of just typing standard commit texts, you'll choose commit types, write descriptions, and—just like in jazz—improvise to create a symphony of commits.
+
+🎷 **Jazz your commits**: It's not just about structure—it's about creativity. Transform your commits into something dynamic, creative, and fun!
+
+## ⚡ Features
+
+- 🎶 **Musical Commit Messages**: Format your commits with delightful emojis like 🎸, 🐛, 💄, and more.
+- ⚡ **Quick Setup**: Easy installation and integration into your project.
+- 🎼 **Predefined Commit Types**: Choose from predefined types and descriptions to maintain consistency.
+- 🛠 **Bad Word Handling**: Automatically handles undesirable words in commit messages and helps you avoid inappropriate expressions.
+- 🔧 **Flexible Configuration**: Customize commit templates and type schemes for a personal touch.
+
+## 💻 Installation and Usage
 
 ### Globally
 
-To install `commit-jazzer` globally, run the following command:
+Install `commitizen` globally, if you have not already.
 
-```bash
-npm install --global commit-jazzer
+```sh
+npm install commitizen -g
 ```
+
+Install your preferred `commitizen` adapter globally (for example [`commit-jazzer`](https://www.npmjs.com/package/commit-jazzer)).
+
+```sh
+npm install commit-jazzer -g
+```
+
+Create a `.czrc` file in your `home` directory, with `path` referring to the preferred, globally-installed, `commitizen` adapter
+
+```sh
+echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+```
+
+You are all set! Now `cd` into any `git` repository and use `git cz` and you will find the `commit-jazzer` prompt.
 
 ### Locally
 
@@ -59,37 +92,64 @@ Then, add this configuration to your `package.json`:
 }
 ```
 
-### Usage
-
 After installation, simply run:
 
 ```bash
 git cz
 ```
 
-### Set it as the default adapter for your projects:
+## ⚙️ Configuration
 
-To set `commit-jazzer` as the default adapter for your projects, run the following command:
+This configuration file is used to customize the behavior of commit-jazzer without modifying the source code.
 
-```bash
-echo '{ "path": "commit-jazzer" }' > ~/.czrc
+### Example Configuration File
+
+```json
+{
+  "$schema": "./node_modules/commit-jazzer/commit-jazzer-schema.json",
+	"language": "en",
+  "template": "{{type}}: {{emoji}} - {{title}}",
+	"availableCommitTypes": ["init", "fix", "refactor"],
+	"availablePromptQuestions": ["type", "title"],
+  "commitTypes": {
+    "rocket": {
+      "emoji": "🚀",
+      "code": ":rocket:",
+      "description": "Deploying application"
+    }
+  },
+  "baseQuestionsOptions": [
+    {
+      "name": "title",
+      "message": "My custom message",
+      "options": {
+        "required": true,
+        "skip": false,
+        "validations": {
+          "length": {
+            "minMessageLength": 0,
+            "maxMessageLength": 10
+          }
+        }
+      }
+    }
+  ],
+  "validateCommitBadWords": true,
+	"badWordsOptions": {
+    "checkHasProfaneWords": true,
+		"clearMessage": true,
+    "replaceProfaneWords": true,
+		"options": {
+			"additionalBlockWords": ["bogdan", "oleg", "nikita"],
+			"excludedWords": ["fool"],
+      "placeholder": "*",
+      "overrideBlockWords": false,
+		}
+	}
+}
 ```
 
-## Bad Word Handling
-
-`commit-jazzer` includes checking for inappropriate words in commit messages. You can configure a list of banned words and set up filtering to maintain code quality standards.
-
-### Configuration options for bad words:
-
-- **checkHasProfaneWords**: Enables the check for profane words in commit messages. Default is `true`.
-- **clearMessage**: Automatically clears profane words from the message. Default is `true`.
-- **replaceProfaneWords**: Replaces profane words with a placeholder (default is `*`). Default is `true`.
-- **additionalBlockWords**: A list of additional words to block.
-- **excludedWords**: Words that will not be blocked even if they appear in the blocklist.
-- **placeholder**: The character or string used to replace profane words.
-- **overrideBlockWords**: Redefine the list of bad words. Default is `false`.
-
-## Contributing
+## 🤝 Contributing
 
 We'd love for you to contribute to `commit-jazzer`! Whether it's reporting bugs, suggesting features, or submitting pull requests, your help is always appreciated.
 
@@ -102,16 +162,35 @@ We'd love for you to contribute to `commit-jazzer`! Whether it's reporting bugs,
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Open a pull request.
 
-Please make sure to follow the [Code of Conduct](#code-of-conduct) and adhere to the project's style guide.
-
-## Code of Conduct
+## 📜 Code of Conduct
 
 Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) when participating in this project to ensure a welcoming and productive atmosphere.
 
-## License
+## 🔒 Security Policy
 
-License
-commit-jazzer is licensed under the MIT License.
+Security is our priority. If you encounter any issues, please read our full [Security Policy](SECURITY.md) to report vulnerabilities safely and responsibly.
+
+## 👥 Team
+
+These folks keep the project moving and are resources for help.
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="11%">
+        <a href="https://career.habr.com/zilero">
+          <img src="https://avatars.githubusercontent.com/u/68345676?s=400&u=eb7df22c29a8aca48def78ec54a7526601c9fd8f&v=4" width="100" height="100" alt="Artemev Alexandr - Avatar">
+          <br />
+          Artemev A. A.
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 📄 License
+
+License commit-jazzer is licensed under the [MIT License](LICENSE).
 
 Be part of the musical process! 🎶
 Add some rhythm and style to your commits with commit-jazzer and turn your workflow into a masterpiece! 🎸

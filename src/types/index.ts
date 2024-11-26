@@ -1,7 +1,7 @@
 import type Inquirer from 'inquirer';
 
 import type { CommitFieldsValues } from './modules/commit';
-import type { BaseCommitType, CommitActionNames } from './modules/actions';
+import type { BaseCommitType, CommitActionNames, CommitActionsEnum } from './modules/actions';
 import type { BaseQuestion } from './modules/prompt';
 import type { LanguageValues } from './modules/language';
 import type { BadWordsOptions } from './modules/badWords';
@@ -11,16 +11,6 @@ export type TypeInquirer = typeof Inquirer;
 
 // Define commit function type.
 export type ICommitFunc = (commitMessage: string) => void;
-
-// Define commit type.
-export interface CommitType extends Partial<BaseCommitType> {
-	/**
-	 * Title of the type commit.
-	 *
-	 * @default "deploy"
-	 */
-	name: CommitActionNames | string;
-}
 
 // Define commit jazzer prompter commitizen options.
 export interface CommitJazzerPrompterOptions {
@@ -57,7 +47,7 @@ export interface CommitJazzerPrompterOptions {
 	 *
 	 * @default {}
 	 */
-	commitTypes?: Record<CommitFieldsValues, CommitType>;
+	commitTypes?: Record<CommitActionsEnum, Partial<BaseCommitType>>;
 
 	/**
 	 * Change options of the basic questions.
