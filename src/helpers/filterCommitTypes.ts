@@ -14,7 +14,7 @@ const filterCommitTypes = (availableCommitTypes: CommitJazzerPrompterOptions['av
 		return DEFAULT_COMMIT_TYPES;
 	}
 
-	return DEFAULT_COMMIT_TYPES.filter((commitType) => {
+	return DEFAULT_COMMIT_TYPES.filter(commitType => {
 		if (!commitType.name) {
 			return false;
 		}

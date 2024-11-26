@@ -35,8 +35,10 @@ describe('createAutocompleteSource', () => {
 
 		const autocompleteSource = createAutocompleteSource({
 			data,
-			keys: ['name'],
 			formatOptions,
+			fuseOptions: {
+				keys: ['name'],
+			},
 		});
 
 		const result = autocompleteSource(undefined, '');
@@ -46,26 +48,27 @@ describe('createAutocompleteSource', () => {
 	});
 
 	it('should return formatted results when query is non-empty', () => {
-		mockCreateFormattedOptions.mockReturnValue([{ id: 2, name: 'Bob' }]);
+		const data = { id: 1, name: 'Alice' };
 
-		const mockFuseSearch = vi.fn().mockReturnValue([{ item: { id: 2, name: 'Bob' } }]);
+		mockCreateFormattedOptions.mockReturnValue([data]);
+
+		const mockFuseSearch = vi.fn().mockReturnValue([{ item: data }]);
 
 		(Fuse as unknown as Mock).mockImplementationOnce(() => ({
 			search: mockFuseSearch,
 		}));
 
 		const autocompleteSource = createAutocompleteSource({
-			data,
-			keys: ['name'],
+			data: [data],
 			formatOptions,
 		});
 
 		const result = autocompleteSource(undefined, 'Bob');
 
-		expect(result).toEqual([{ id: 2, name: 'Bob' }]);
+		expect(result).toEqual([data]);
 		expect(mockFuseSearch).toHaveBeenCalledWith('Bob');
 		expect(mockCreateFormattedOptions).toHaveBeenCalledWith({
-			data: [{ item: { id: 2, name: 'Bob' } }],
+			data: [data],
 			formatOptions,
 		});
 	});
@@ -84,8 +87,10 @@ describe('createAutocompleteSource', () => {
 
 		const autocompleteSource = createAutocompleteSource({
 			data,
-			keys: ['name'],
 			formatOptions,
+			fuseOptions: {
+				keys: ['name'],
+			},
 		});
 
 		const result = autocompleteSource(undefined, 'Nonexistent');

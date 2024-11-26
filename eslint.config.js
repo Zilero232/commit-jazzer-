@@ -17,7 +17,7 @@ export default antfu(
 			indent: 'tab',
 			semi: true,
 			jsx: false,
-			arrowParens: 'always',
+			arrowParens: 'avoid',
 		},
 
 		// Ignored files and folders.
@@ -36,6 +36,7 @@ export default antfu(
 			'test/prefer-lowercase-title': 'off',
 
 			'style/brace-style': 'off',
+			'style/arrow-parens': 'off',
 
 			'ts/strict-boolean-expressions': 'off',
 		},
@@ -69,7 +70,7 @@ export default antfu(
 					tabWidth: 2,
 					useTabs: true,
 					endOfLine: 'lf',
-					arrowParens: 'always',
+					arrowParens: 'avoid',
 				},
 			],
 		},

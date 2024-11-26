@@ -40,7 +40,7 @@ export const generateQuestionPrompts = async ({
 	const CURRENT_TRANSLATIONS = language ? translations[language] : [];
 
 	// Generate default questions.
-	DEFAULT_QUESTIONS.forEach((question) => {
+	DEFAULT_QUESTIONS.forEach(question => {
 		const { key } = question;
 
 		// If the array is not empty and does not contain a key, skip this question.
@@ -106,13 +106,15 @@ export const generateQuestionPrompts = async ({
 				case CommitFieldsEnum.ActionType:
 					promptQuestion.source = createAutocompleteSource({
 						data: filterCommitTypes(availableCommitTypes),
-						keys: ['name', 'code', 'description'],
 						formatOptions: {
 							templateShowFormat: '{{name}} - {{description}} {{emoji}}',
 							templateValueFormat: {
 								type: 'name',
 								emoji: 'emoji',
 							},
+						},
+						fuseOptions: {
+							keys: ['name', 'code', 'description'],
 						},
 					});
 

@@ -75,7 +75,7 @@ describe('generateQuestionPrompts', () => {
 			],
 		});
 
-		result.forEach((question) => {
+		result.forEach(question => {
 			if (question.name === CommitFieldsEnum.ActionType) {
 				return (question.message = 'Custom message');
 			}

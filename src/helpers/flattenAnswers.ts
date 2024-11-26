@@ -17,7 +17,7 @@ const flattenAnswers = (answers: PromptAnswers): Record<string, unknown> => {
 		return flatAnswers;
 	}
 
-	(Object.keys(answers) as (keyof PromptAnswers)[]).forEach((key) => {
+	(Object.keys(answers) as (keyof PromptAnswers)[]).forEach(key => {
 		const value = answers[key] ?? '';
 
 		if (!value) {

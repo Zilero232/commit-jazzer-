@@ -1,16 +1,16 @@
 import type { BaseCommitType, CommitActionNames } from '@/types/modules/actions';
 import { CommitActionsEnum } from '@/types/modules/actions';
 
-interface CommitTypes extends BaseCommitType {
+interface CommitType extends BaseCommitType {
 	/**
 	 * Title of the type commit.
 	 *
 	 * @default "deploy"
 	 */
-	name: CommitActionNames;
+	name: CommitActionNames | string;
 }
 
-const DEFAULT_COMMIT_TYPES: CommitTypes[] = [
+const DEFAULT_COMMIT_TYPES: CommitType[] = [
 	{ name: CommitActionsEnum.FEAT, emoji: '✨', code: ':sparkles:', description: 'Introducing new features' },
 	{ name: CommitActionsEnum.FIX, emoji: '🐛', code: ':bug:', description: 'Fixing a bug' },
 	{ name: CommitActionsEnum.REFACTOR, emoji: '♻️', code: ':recycle:', description: 'Refactoring code' },

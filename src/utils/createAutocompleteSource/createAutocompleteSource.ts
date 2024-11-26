@@ -5,8 +5,7 @@ import createFormattedOptions from '@/helpers/createFormattedOptions';
 
 interface CreateAutocompleteSourceProps<T> {
 	data: T[];
-	keys: (keyof T)[];
-	formatOptions: {
+	formatOptions?: {
 		templateShowFormat?: string;
 		templateValueFormat?: Record<string, keyof T>;
 	};
@@ -19,7 +18,6 @@ interface CreateAutocompleteSourceProps<T> {
  * @template T - The type of the data elements.
  * @param {CreateAutocompleteSourceProps<T>} props - The properties for creating the autocomplete source.
  * @param {T[]} props.data - The data array to search through.
- * @param {(keyof T)[]} props.keys - The keys to search within each data item.
  * @param {object} props.formatOptions - Options for formatting the search results.
  * @param {string} [props.formatOptions.templateShowFormat] - Template for displaying the search result.
  * @param {Record<string, keyof T>} [props.formatOptions.templateValueFormat] - Template for values in the search result.
@@ -27,10 +25,18 @@ interface CreateAutocompleteSourceProps<T> {
  *
  * @returns {Function} - A function that accepts a query string and returns formatted search results.
  */
-export const createAutocompleteSource = <T>({ data, keys, formatOptions, fuseOptions }: CreateAutocompleteSourceProps<T>) => {
-	const stringKeys: string[] = keys.map((key: unknown) => key as string);
-
-	const fuse = new Fuse(data, { ...fuseOptions, keys: stringKeys });
+export const createAutocompleteSource = <T>({
+	data,
+	formatOptions,
+	fuseOptions = {
+		shouldSort: true,
+		threshold: 0.4,
+		location: 0,
+		distance: 100,
+		minMatchCharLength: 1,
+	},
+}: CreateAutocompleteSourceProps<T>) => {
+	const fuse = new Fuse(data, fuseOptions);
 
 	return (_: unknown, query: string) => {
 		if (!query) {
@@ -42,8 +48,11 @@ export const createAutocompleteSource = <T>({ data, keys, formatOptions, fuseOpt
 			// Performing a search with filtering.
 			const results = fuse.search(query);
 
+			// Extract only data from the search results (usually this is the `item` field).
+			const extractedData = results.map(result => result.item || result);
+
 			// Return formatted data for the search results.
-			return createFormattedOptions({ data: results as T[], formatOptions });
+			return createFormattedOptions({ data: extractedData as T[], formatOptions });
 		} catch (error) {
 			console.error('Error during search or sorting:', error);
 

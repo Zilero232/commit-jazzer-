@@ -4,7 +4,7 @@ import LOG_MESSAGES from '@/constants/logMessages';
 
 interface CreateFormattedOptionsProps<T> {
 	data: T[];
-	formatOptions: {
+	formatOptions?: {
 		templateShowFormat?: string;
 		templateValueFormat?: Record<string, keyof T>;
 	};
@@ -21,10 +21,10 @@ interface CreateFormattedOptionsProps<T> {
  *
  * @returns {Array<{name: string, value: Record<string, T[keyof T]>}>} - The formatted data.
  */
-const createFormattedOptions = <T>({ data, formatOptions }: CreateFormattedOptionsProps<T>) => {
+const createFormattedOptions = <T>({ data, formatOptions = {} }: CreateFormattedOptionsProps<T>) => {
 	const { templateShowFormat = '', templateValueFormat = {} } = formatOptions;
 
-	return data.map((item) => {
+	return data.map(item => {
 		// Getting the formatted name from templateShowFormat.
 		const formattedName = messageFormatter({
 			template: templateShowFormat,

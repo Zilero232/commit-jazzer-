@@ -18,7 +18,7 @@ const loggerWinstonConfig: LoggerOptions = {
 				timestamp({
 					format: 'YYYY-MM-DD HH:mm:ss',
 				}),
-				printf((info) => {
+				printf(info => {
 					return `${info.timestamp as string} ${info.level}: ${info.message as string}`;
 				}),
 			),
