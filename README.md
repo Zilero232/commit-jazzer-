@@ -107,10 +107,10 @@ This configuration file is used to customize the behavior of commit-jazzer witho
 ```json
 {
   "$schema": "./node_modules/commit-jazzer/commit-jazzer-schema.json",
-	"language": "en",
+  "language": "en",
   "template": "{{type}}: {{emoji}} - {{title}}",
-	"availableCommitTypes": ["init", "fix", "refactor"],
-	"availablePromptQuestions": ["type", "title"],
+  "availableCommitTypes": ["init", "fix", "refactor"],
+  "availablePromptQuestions": ["type", "title"],
   "commitTypes": {
     "rocket": {
       "emoji": "🚀",
@@ -135,17 +135,17 @@ This configuration file is used to customize the behavior of commit-jazzer witho
     }
   ],
   "validateCommitBadWords": true,
-	"badWordsOptions": {
+  "badWordsOptions": {
     "checkHasProfaneWords": true,
-		"clearMessage": true,
+    "clearMessage": true,
     "replaceProfaneWords": true,
-		"options": {
-			"additionalBlockWords": ["bogdan", "oleg", "nikita"],
-			"excludedWords": ["fool"],
+    "options": {
+      "additionalBlockWords": ["bogdan", "oleg", "nikita"],
+      "excludedWords": ["fool"],
       "placeholder": "*",
-      "overrideBlockWords": false,
-		}
-	}
+      "overrideBlockWords": false
+    }
+  }
 }
 ```
 
