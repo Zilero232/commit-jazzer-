@@ -17,5 +17,5 @@
 	"import": ["@cspell/dict-ru_ru/cspell-ext.json"],
 	"ignoreWords": ["zilero"],
 	"useGitignore": true,
-	"words": ["splited", "Zod", "maxlength", "esmodules", "knip"]
+	"words": ["esmodules", "knip", "maxlength", "smushing", "splited", "Zod"]
 }
