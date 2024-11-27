@@ -111,16 +111,21 @@ This configuration file is used to customize the behavior of commit-jazzer witho
   "template": "{{type}}: {{emoji}} - {{title}}",
   "availableCommitTypes": ["init", "fix", "refactor"],
   "availablePromptQuestions": ["type", "title"],
-  "commitTypes": {
-    "rocket": {
-      "emoji": "🚀",
-      "code": ":rocket:",
-      "description": "Deploying application"
-    }
-  },
+  "baseCommitTypes": {
+		"init": {
+			"description": "Custom deploying message"
+		}
+	},
+	"addCustomCommitTypes": {
+		"custom": {
+			"emoji": "🚀",
+			"code": ":rocket:",
+			"description": "Deploying application"
+		}
+	},
   "baseQuestionsOptions": [
     {
-      "name": "title",
+      "key": "title",
       "message": "My custom message",
       "options": {
         "required": true,
@@ -128,7 +133,7 @@ This configuration file is used to customize the behavior of commit-jazzer witho
         "validations": {
           "length": {
             "minMessageLength": 0,
-            "maxMessageLength": 10
+            "maxMessageLength": 200
           }
         }
       }
@@ -145,7 +150,11 @@ This configuration file is used to customize the behavior of commit-jazzer witho
       "placeholder": "*",
       "overrideBlockWords": false
     }
-  }
+  },
+  "showBanner": true,
+	"showBannerOptions": {
+		"bannerText": "Look, I can change the name."
+	}
 }
 ```
 

@@ -2,6 +2,7 @@ import type { CommitJazzerPrompterOptions } from '@/types/index';
 
 import { LanguageEnum } from '@/types/modules/language';
 import { CommitFieldsEnum } from '@/types/modules/commit';
+import DEFAULT_CONFIG_BANNER from './defaultConfigBanner';
 
 // Define base template format.
 const BASE_TEMPLATE_FORMAT = `{{${CommitFieldsEnum.ActionType}}}: {{emoji}} - {{${CommitFieldsEnum.Title}}}`;
@@ -16,6 +17,8 @@ const DEFAULT_CONFIGURATION: CommitJazzerPrompterOptions = {
 		replaceProfaneWords: false,
 		clearMessage: false,
 	},
+	showBanner: true,
+	showBannerOptions: DEFAULT_CONFIG_BANNER,
 };
 
 export default DEFAULT_CONFIGURATION;

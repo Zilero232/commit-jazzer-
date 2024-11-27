@@ -5,6 +5,7 @@ import type { BaseCommitType, CommitActionNames, CommitActionsEnum } from './mod
 import type { BaseQuestion } from './modules/prompt';
 import type { LanguageValues } from './modules/language';
 import type { BadWordsOptions } from './modules/badWords';
+import type { ShowBannerOptions } from './modules/banner';
 
 // Define Inquirer types.
 export type TypeInquirer = typeof Inquirer;
@@ -43,11 +44,18 @@ export interface CommitJazzerPrompterOptions {
 	availablePromptQuestions?: CommitFieldsValues[];
 
 	/**
-	 * Can change the basic types here or add your own type.
+	 * Can change the basic types here.
 	 *
 	 * @default {}
 	 */
-	commitTypes?: Record<CommitActionsEnum, Partial<BaseCommitType>>;
+	baseCommitTypes?: Partial<Record<CommitActionsEnum, Partial<BaseCommitType>>>;
+
+	/**
+	 * Create custom commit types.
+	 *
+	 * @default {}
+	 */
+	addCustomCommitTypes?: Record<string, BaseCommitType>;
 
 	/**
 	 * Change options of the basic questions.
@@ -69,4 +77,18 @@ export interface CommitJazzerPrompterOptions {
 	 * @default {}
 	 */
 	badWordsOptions?: BadWordsOptions;
+
+	/**
+	 * Show the banner before starting the commit process.
+	 *
+	 * @default true
+	 */
+	showBanner?: boolean;
+
+	/**
+	 * Show the banner before starting the commit process.
+	 *
+	 * @default {}
+	 */
+	showBannerOptions?: ShowBannerOptions;
 }

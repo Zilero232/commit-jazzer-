@@ -1,7 +1,7 @@
 {
 	"name": "commit-jazzer",
 	"type": "module",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A Git plugin that adds emojis to commit messages, improving readability and consistency in your commit history. Helps enforce Conventional Commits, making it easier for teams to automate versioning and generate changelogs. Integrates with tools like Commitizen and Gitmoji.",
 	"author": {
 		"name": "Artemev Alexandr",
@@ -64,13 +64,16 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"chalk": "^4.1.2",
 		"commitizen": "^4.3.1",
 		"cosmiconfig": "^9.0.0",
+		"figlet": "^1.8.0",
 		"fuse.js": "^7.0.0",
 		"handlebars": "^4.7.8",
 		"inquirer": "8.2.6",
 		"inquirer-autocomplete-prompt": "2.0.1",
 		"inquirer-maxlength-input-prompt": "^1.0.2",
+		"ts-deepmerge": "^7.0.2",
 		"winston": "^3.17.0",
 		"zod": "^3.23.8"
 	},
@@ -81,6 +84,8 @@
 		"@babel/preset-env": "^7.26.0",
 		"@babel/preset-typescript": "^7.26.0",
 		"@cspell/dict-ru_ru": "^2.2.4",
+		"@types/chalk": "^2.2.4",
+		"@types/figlet": "^1.7.0",
 		"@types/inquirer": "^9.0.7",
 		"@types/inquirer-autocomplete-prompt": "^3.0.3",
 		"@types/node": "^22.9.0",

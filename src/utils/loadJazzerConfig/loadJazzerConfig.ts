@@ -1,5 +1,6 @@
 import process from 'node:process';
 import { cosmiconfig } from 'cosmiconfig';
+import { merge } from 'ts-deepmerge';
 
 import CommitJazzerPrompterOptionsZodSchema from '@/schema/JazzerZodSchema';
 
@@ -59,18 +60,13 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 		const data = parseResult.data as CommitJazzerPrompterOptions;
 
 		// If the configuration is valid, we merge it with the default configuration.
-		return {
-			...DEFAULT_CONFIGURATION,
-			...data,
-			badWordsOptions: {
-				...DEFAULT_CONFIGURATION.badWordsOptions,
-				...data.badWordsOptions,
-				options: {
-					...DEFAULT_CONFIGURATION?.badWordsOptions?.options,
-					...data.badWordsOptions?.options,
-				},
+		return merge.withOptions(
+			{
+				mergeArrays: false,
 			},
-		};
+			DEFAULT_CONFIGURATION,
+			data,
+		);
 	} catch (error: unknown) {
 		LOG_MESSAGES.CONFIG_LOADER_ERROR(error as Error);
 

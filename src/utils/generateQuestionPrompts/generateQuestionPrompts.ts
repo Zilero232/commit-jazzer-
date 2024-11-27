@@ -33,6 +33,8 @@ export const generateQuestionPrompts = async ({
 	baseQuestionsOptions,
 	availableCommitTypes = [],
 	availablePromptQuestions = [],
+	baseCommitTypes = {},
+	addCustomCommitTypes = {},
 }: CommitJazzerPrompterOptions) => {
 	const promptQuestions: PromptQuestions[] = [];
 
@@ -105,7 +107,7 @@ export const generateQuestionPrompts = async ({
 			switch (key) {
 				case CommitFieldsEnum.ActionType:
 					promptQuestion.source = createAutocompleteSource({
-						data: filterCommitTypes(availableCommitTypes),
+						data: filterCommitTypes({ availableCommitTypes, baseCommitTypes, addCustomCommitTypes }),
 						formatOptions: {
 							templateShowFormat: '{{name}} - {{description}} {{emoji}}',
 							templateValueFormat: {

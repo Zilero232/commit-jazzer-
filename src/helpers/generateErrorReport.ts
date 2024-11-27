@@ -49,7 +49,7 @@ const generateErrorReport = ({ issues, options = {} }: GenerateErrorReport): str
 
 		errorMessage += `: ${issue.message}`;
 
-		return `${report} ${errorMessage} ${separator}`.trim();
+		return `${report} ${errorMessage} ${separator}`;
 	}, '');
 
 	if (maxIssues !== null && issues.length > maxIssues) {

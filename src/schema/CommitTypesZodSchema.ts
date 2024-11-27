@@ -5,16 +5,15 @@ import { ZCommitActionType } from './modules/ZodEnums';
 
 import type { CommitJazzerPrompterOptions } from '../types';
 
-const CommitTypesZodSchema: ZodType<CommitJazzerPrompterOptions['commitTypes']> = z
+const CommitTypesSchema: ZodType<CommitJazzerPrompterOptions['baseCommitTypes']> = z
 	.record(
 		ZCommitActionType,
 		z.object({
-			name: z.string(),
-			emoji: z.string(),
-			code: z.string(),
-			description: z.string(),
+			emoji: z.string().optional(),
+			code: z.string().optional(),
+			description: z.string().optional(),
 		}),
 	)
 	.optional();
 
-export default CommitTypesZodSchema;
+export default CommitTypesSchema;
