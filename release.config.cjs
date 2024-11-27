@@ -46,6 +46,9 @@ const config = {
 
 					// A 'chore' commit triggers a patch version release (for minor tasks like updating dependencies)
 					{ type: 'chore', release: 'patch' },
+
+					// An 'init' commit triggers a patch version release (for initial project setup)
+					{ type: 'init', release: 'patch' },
 				],
 			},
 		],

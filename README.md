@@ -112,17 +112,17 @@ This configuration file is used to customize the behavior of commit-jazzer witho
   "availableCommitTypes": ["init", "fix", "refactor"],
   "availablePromptQuestions": ["type", "title"],
   "baseCommitTypes": {
-		"init": {
-			"description": "Custom deploying message"
-		}
-	},
-	"addCustomCommitTypes": {
-		"custom": {
-			"emoji": "🚀",
-			"code": ":rocket:",
-			"description": "Deploying application"
-		}
-	},
+    "init": {
+      "description": "Custom deploying message"
+    }
+  },
+  "addCustomCommitTypes": {
+    "custom": {
+      "emoji": "🚀",
+      "code": ":rocket:",
+      "description": "Deploying application"
+    }
+  },
   "baseQuestionsOptions": [
     {
       "key": "title",
@@ -152,9 +152,9 @@ This configuration file is used to customize the behavior of commit-jazzer witho
     }
   },
   "showBanner": true,
-	"showBannerOptions": {
-		"bannerText": "Look, I can change the name."
-	}
+  "showBannerOptions": {
+    "bannerText": "Look, I can change the name."
+  }
 }
 ```
 
