@@ -35,8 +35,7 @@
 	},
 	"main": "./build/common/index.cjs",
 	"files": [
-		"build/",
-		"commit-jazzer-schema.json"
+		"build/"
 	],
 	"config": {
 		"commitizen": {
