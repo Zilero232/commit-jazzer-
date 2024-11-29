@@ -66,7 +66,7 @@ jobs:
           mkdir temp-folder
           cp public/commit-jazzer-schema.json temp-folder/
 
-      #  Step to deploy to GitHub Pages.
+      #  Step to deploy to GitHub Pages.ы
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
