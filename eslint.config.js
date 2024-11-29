@@ -39,6 +39,7 @@ export default antfu(
 			'style/arrow-parens': 'off',
 
 			'ts/strict-boolean-expressions': 'off',
+			'ts/switch-exhaustiveness-check': 'off',
 		},
 	},
 	{
