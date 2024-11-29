@@ -106,7 +106,7 @@ This configuration file is used to customize the behavior of commit-jazzer witho
 
 ```json
 {
-  "$schema": "./node_modules/commit-jazzer/commit-jazzer-schema.json",
+  "$schema": "https://zilero232.github.io/commit-jazzer/commit-jazzer-schema.json",
   "language": "en",
   "template": "{{type}}: {{emoji}} - {{title}}",
   "availableCommitTypes": ["init", "fix", "refactor"],

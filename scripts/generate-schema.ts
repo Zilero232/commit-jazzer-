@@ -8,7 +8,7 @@ import type { PartialArgs } from 'typescript-json-schema';
 const TS_CONFIG_PATH = 'tsconfig.json';
 const TYPE_FILE_PATH = 'src/types/index.ts';
 const TYPE_NAME = 'CommitJazzerPrompterOptions';
-const OUTPUT_PATH = 'commit-jazzer-schema.json';
+const OUTPUT_PATH = 'public/commit-jazzer-schema.json';
 
 // Settings for generating a schema.
 const settings: PartialArgs = {

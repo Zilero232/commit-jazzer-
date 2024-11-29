@@ -1,5 +1,5 @@
 {
-	"$schema": "./commit-jazzer-schema.json",
+	"$schema": "./public/commit-jazzer-schema.json",
 	"language": "ru",
 	"availableCommitTypes": ["init", "fix", "refactor", "docs", "remove", "test", "breaking"],
 	"availablePromptQuestions": ["type", "title"],
