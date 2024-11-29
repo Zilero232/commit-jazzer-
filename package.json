@@ -35,8 +35,7 @@
 	},
 	"main": "./build/common/index.cjs",
 	"files": [
-		"build/",
-		"commit-jazzer-schema.json"
+		"build/"
 	],
 	"config": {
 		"commitizen": {
@@ -122,7 +121,7 @@
 		"inquirer": "8.2.6"
 	},
 	"lint-staged": {
-		"*.{ts,tsx,js,jsx}": [
+		"*.{ts,tsx,js,jsx,yaml}": [
 			"yarn lint:check",
 			"yarn cspell"
 		]

@@ -36,27 +36,29 @@ const showBanner = async ({ bannerText = '', figletOptions, options = {} }: Show
 			// Output the generated banner with custom color.
 			const banner = chalk[color](data);
 
-			// Show the banner.
-			console.log(banner);
+			// eslint-disable-next-line no-console
+			console.log(banner); // Show the banner.
 
-			// Show the separator.
-			console.log(separatorChalk);
+			// eslint-disable-next-line no-console
+			console.log(separatorChalk); // Show the separator.
 
 			// Output the footer messages with their respective colors.
 			footerMessages.forEach(message => {
 				const footerMessage = chalk[message.color || 'white'](message.text);
 
+				// eslint-disable-next-line no-console
 				console.log(footerMessage);
 			});
 
 			// Footer separator.
 			const footerSeparatorChalk = chalk[separatorColor](footerSeparator.repeat(maxFooterLength));
 
-			// End separator.
-			console.log(footerSeparatorChalk);
+			// eslint-disable-next-line no-console
+			console.log(footerSeparatorChalk); // End separator.
 
 			// Add bottom spacing (optional empty lines).
 			for (let i = 0; i < bottomSpacing; i++) {
+				// eslint-disable-next-line no-console
 				console.log(); // Outputs a blank line for spacing.
 			}
 

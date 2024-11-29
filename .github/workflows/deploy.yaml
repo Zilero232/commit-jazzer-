@@ -30,9 +30,20 @@ jobs:
 
       # Step to set up Node.js.
       - name: Setup Node
+        id: setup-node
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      # Step to cache the `node_modules` directory to improve performance of subsequent runs.
+      - name: Cache Node modules
+        id: yarn-cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       # Step to install dependencies using Yarn.
       - name: Install dependencies
@@ -41,6 +52,20 @@ jobs:
       # Step to build the project (production build).
       - name: Run Build
         run: yarn build:prod
+
+      # Step to copy the schema file to a temporary folder.
+      - name: Copy file to temp folder
+        run: |
+          mkdir temp-folder
+          cp public/commit-jazzer-schema.json temp-folder/
+
+      #  Step to deploy to GitHub Pages.ы
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: temp-folder
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # Step to run Semantic Release.
       - name: Semantic Release
