@@ -32,7 +32,7 @@ jobs:
       - id: setup-node
         uses: actions/setup-node@v4
         with:
-           node-version: 22
+          node-version: 22
 
       # Step to cache the `node_modules` directory to improve performance of subsequent runs.
       - name: Cache Node modules
@@ -53,17 +53,17 @@ jobs:
         run: yarn build:prod
 
       # Authentication with Google Cloud via Service Accounts.
-      - id: 'auth_google_cloud'
-        uses: 'google-github-actions/auth@v2'
+      - id: auth_google_cloud
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # Uploading a schema file to Google Cloud Storage.
       - name: Upload schema to Google Cloud Storage
-        uses: 'google-github-actions/upload-cloud-storage@v2'
+        uses: google-github-actions/upload-cloud-storage@v2
         with:
-          path: 'public/commit-jazzer-schema.json' # Local path to the file you want to download.
-          destination: 'commit-jazzer' # The path inside the GCC package.
+          path: public/commit-jazzer-schema.json # Local path to the file you want to download.
+          destination: commit-jazzer # The path inside the GCC package.
 
       # Step to run Semantic Release.
       - name: Semantic Release
