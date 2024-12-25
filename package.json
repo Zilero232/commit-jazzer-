@@ -113,7 +113,7 @@
 		"vitest": "^2.1.4",
 		"webpack": "^5.96.0",
 		"webpack-bundle-analyzer": "^4.10.2",
-		"webpack-cli": "^5.1.4",
+		"webpack-cli": "^6.0.0",
 		"webpack-node-externals": "^3.0.0",
 		"webpack-shell-plugin-next": "^2.3.2"
 	},
