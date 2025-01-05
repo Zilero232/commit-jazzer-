@@ -43,7 +43,7 @@ const createFormattedOptions = <T>({ data, formatOptions = {} }: CreateFormatted
 				if (item[fieldKey]) {
 					valuesAcc[key] = item[fieldKey];
 				} else {
-					LOG_MESSAGES.GENERIC_WARN(`formatData: Missing key "${String(fieldKey)}" in item: ${JSON.stringify(item)}`);
+					LOG_MESSAGES.WARN(`formatData: Missing key "${String(fieldKey)}" in item: ${JSON.stringify(item)}`);
 				}
 
 				return valuesAcc;

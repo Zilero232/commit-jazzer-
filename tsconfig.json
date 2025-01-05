@@ -1,4 +1,4 @@
 {
 	"extends": "./tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./lib/**/*.ts", "./scripts/**/*.ts", "./webpack.config.ts", "./vitest.config.ts", "scripts/commander/index.js"]
+	"include": ["**/*.ts", "**/*.d.ts", ".jazzer-cz.ts"]
 }

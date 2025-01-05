@@ -21,28 +21,28 @@
 
 ## Table of Contents
 
-1. [🎥 Demo](#🎥-demo)
-2. [🔍 Description](#🔍-description)
-3. [⚡ Features](#⚡-features)
-4. [💻 Installation and Usage](#💻-installation-and-usage)
-5. [⚙️ Configuration](#⚙️-configuration)
-6. [🤝 Contributing](#🤝-contributing)
-7. [📜 Code of Conduct](#📜-code-of-conduct)
-8. [🔒 Security Policy](#🔒-security-policy)
-9. [👥 Team](#👥-team)
-10. [📄 License](#📄-license)
+1. [🎥 Demo](#demo)
+2. [🔍 Description](#description)
+3. [⚡ Features](#features)
+4. [💻 Installation and Usage](#installation-and-usage)
+5. [⚙️ Configuration](#configuration)
+6. [🤝 Contributing](#contributing)
+7. [📜 Code of Conduct](#code-of-conduct)
+8. [🔒 Security Policy](#security-policy)
+9. [👥 Team](#team)
+10. [📄 License](#license)
 
-## Demo
+## 🎥 Demo {#demo}
 
 ![commit-jazzer](public/commit-demo.gif)
 
-## 🔍 Description
+## 🔍 Description {#description}
 
 **`commit-jazzer`** is a tool that introduces a touch of musical flair into your Git commit messages. Built on the solid foundation of Commitizen, it allows you to follow commit conventions and spice up your messages with emojis. Instead of just typing standard commit texts, you'll choose commit types, write descriptions, and—just like in jazz—improvise to create a symphony of commits.
 
 🎷 **Jazz your commits**: It's not just about structure—it's about creativity. Transform your commits into something dynamic, creative, and fun!
 
-## ⚡ Features
+## ⚡ Features {#description}
 
 - 🎶 **Musical Commit Messages**: Format your commits with delightful emojis like 🎸, 🐛, 💄, and more.
 - ⚡ **Quick Setup**: Easy installation and integration into your project.
@@ -50,7 +50,7 @@
 - 🛠 **Bad Word Handling**: Automatically handles undesirable words in commit messages and helps you avoid inappropriate expressions.
 - 🔧 **Flexible Configuration**: Customize commit templates and type schemes for a personal touch.
 
-## 💻 Installation and Usage
+## 💻 Installation and Usage {#installation-and-usage}
 
 ### Globally
 
@@ -69,7 +69,7 @@ npm install commit-jazzer -g
 Create a `.czrc` file in your `home` directory, with `path` referring to the preferred, globally-installed, `commitizen` adapter
 
 ```sh
-echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+echo '{ "path": "commit-jazzer" }' > ~/.czrc
 ```
 
 You are all set! Now `cd` into any `git` repository and use `git cz` and you will find the `commit-jazzer` prompt.
@@ -98,9 +98,43 @@ After installation, simply run:
 git cz
 ```
 
-## ⚙️ Configuration
+## ⚙️ Configuration {#configuration}
 
-This configuration file is used to customize the behavior of commit-jazzer without modifying the source code.
+### Configuration Types Support
+
+These configuration files is used to customize the behavior of commit-jazzer without modifying the source code.
+
+`commit-jazzer` supports three languages JavaScript, TypeScript and JSON for configuration.
+
+#### TypeScript
+
+```typescript
+import type { CommitJazzerPrompterOptions } from 'commit-jazzer';
+
+const CommitJazzerConfig: CommitJazzerPrompterOptions = {
+  language: 'en',
+  template: '{{type}}: {{emoji}} - {{title}}',
+  availableCommitTypes: ['init', 'fix', 'refactor'],
+  availablePromptQuestions: ['type', 'title']
+};
+
+export default CommitJazzerConfig;
+```
+
+#### JavaScript
+
+```javascript
+/** @type {import('commit-jazzer').CommitJazzerPrompterOptions} */
+
+const CommitJazzerConfig = {
+  language: 'en',
+  template: '{{type}}: {{emoji}} - {{title}}',
+  availableCommitTypes: ['init', 'fix', 'refactor'],
+  availablePromptQuestions: ['type', 'title']
+};
+
+export default CommitJazzerConfig;
+```
 
 ### Example Configuration File
 
@@ -158,7 +192,7 @@ This configuration file is used to customize the behavior of commit-jazzer witho
 }
 ```
 
-## 🤝 Contributing
+## 🤝 Contributing {#contributing}
 
 We'd love for you to contribute to `commit-jazzer`! Whether it's reporting bugs, suggesting features, or submitting pull requests, your help is always appreciated.
 
@@ -171,15 +205,15 @@ We'd love for you to contribute to `commit-jazzer`! Whether it's reporting bugs,
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Open a pull request.
 
-## 📜 Code of Conduct
+## 📜 Code of Conduct {#code-of-conduct}
 
 Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) when participating in this project to ensure a welcoming and productive atmosphere.
 
-## 🔒 Security Policy
+## 🔒 Security Policy {#security-policy}
 
 Security is our priority. If you encounter any issues, please read our full [Security Policy](SECURITY.md) to report vulnerabilities safely and responsibly.
 
-## 👥 Team
+## 👥 Team {#team}
 
 These folks keep the project moving and are resources for help.
 
@@ -197,7 +231,7 @@ These folks keep the project moving and are resources for help.
   </tbody>
 </table>
 
-## 📄 License
+## 📄 License {#license}
 
 License commit-jazzer is licensed under the [MIT License](LICENSE).
 

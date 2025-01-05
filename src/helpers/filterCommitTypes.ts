@@ -19,10 +19,10 @@ interface FilterCommitTypes {
  * @returns {Array} - The filtered and customized list of commit types, including any default, modified, and custom commit types.
  */
 const filterCommitTypes = ({ availableCommitTypes = [], baseCommitTypes = {}, addCustomCommitTypes = {} }: FilterCommitTypes) => {
-	// Фильтруем стандартные типы коммитов на основе доступных commitTypes
+	// Filtering the standard commit types based on the available commitTypes.
 	let filteredCommitTypes = DEFAULT_COMMIT_TYPES;
 
-	// Если availableCommitTypes не пустой, фильтруем итоговый список по доступным типам
+	// If availableCommitTypes is not empty, filter the final list by available types.
 	if (availableCommitTypes.length > 0) {
 		filteredCommitTypes = filteredCommitTypes.filter(commitType => {
 			if (!commitType.name) {
@@ -33,7 +33,7 @@ const filterCommitTypes = ({ availableCommitTypes = [], baseCommitTypes = {}, ad
 		});
 	}
 
-	// Применяем изменения из baseCommitTypes
+	// Applying changes from baseCommitTypes.
 	filteredCommitTypes = filteredCommitTypes.map(commitType => {
 		const baseCommitType = baseCommitTypes[commitType.name as keyof typeof baseCommitTypes];
 
@@ -47,13 +47,13 @@ const filterCommitTypes = ({ availableCommitTypes = [], baseCommitTypes = {}, ad
 		return commitType;
 	});
 
-	// Добавляем кастомные типы из addCustomCommitTypes
+	// Adding custom types from addCustomCommitTypes.
 	const customCommitTypes = Object.keys(addCustomCommitTypes).map(key => ({
 		name: key,
 		...addCustomCommitTypes[key],
 	}));
 
-	// Объединяем стандартные типы и кастомные
+	// Combining standard types and custom ones.
 	filteredCommitTypes = [...filteredCommitTypes, ...customCommitTypes];
 
 	return filteredCommitTypes;
