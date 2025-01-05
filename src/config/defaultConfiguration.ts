@@ -1,4 +1,4 @@
-import type { CommitJazzerPrompterOptions } from '@/types/index';
+import type { CommitJazzerPrompterOptions } from '@/types/index.ts';
 
 import { LanguageEnum } from '@/types/modules/language';
 import { CommitFieldsEnum } from '@/types/modules/commit';
@@ -10,6 +10,7 @@ const BASE_TEMPLATE_FORMAT = `{{${CommitFieldsEnum.ActionType}}}: {{emoji}} - {{
 // Define default configuration.
 const DEFAULT_CONFIGURATION: CommitJazzerPrompterOptions = {
 	language: LanguageEnum.English,
+	availablePromptQuestions: ['type', 'title'],
 	template: BASE_TEMPLATE_FORMAT,
 	validateCommitBadWords: true,
 	badWordsOptions: {

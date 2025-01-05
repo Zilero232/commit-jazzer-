@@ -11,7 +11,7 @@ import type { ShowBannerOptions } from './modules/banner';
 export type TypeInquirer = typeof Inquirer;
 
 // Define commit function type.
-export type ICommitFunc = (commitMessage: string) => void;
+export type CommitMessageFunc = (commitMessage: string) => void;
 
 // Define commit jazzer prompter commitizen options.
 export interface CommitJazzerPrompterOptions {

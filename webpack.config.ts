@@ -9,6 +9,7 @@ import nodeExternals from 'webpack-node-externals';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import WebpackShellPluginNext from 'webpack-shell-plugin-next';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -114,6 +115,16 @@ const pluginsAndOptimization = (isProduction: boolean, isWatchMode: boolean) => 
 			typescript: {
 				configFile: './tsconfig.build.json',
 			},
+		}),
+
+		// Copying types.
+		new CopyPlugin({
+			patterns: [
+				{
+					from: 'src/types',
+					to: '../types',
+				},
+			],
 		}),
 
 		...(isProduction

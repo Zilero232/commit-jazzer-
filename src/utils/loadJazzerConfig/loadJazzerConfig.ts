@@ -1,5 +1,6 @@
 import process from 'node:process';
 import { cosmiconfig } from 'cosmiconfig';
+import { TypeScriptLoader } from 'cosmiconfig-typescript-loader';
 import { merge } from 'ts-deepmerge';
 
 import CommitJazzerPrompterOptionsZodSchema from '@/schema/JazzerZodSchema';
@@ -7,7 +8,7 @@ import CommitJazzerPrompterOptionsZodSchema from '@/schema/JazzerZodSchema';
 import generateErrorReport from '@/helpers/generateErrorReport';
 import { isObject } from '@/helpers/typeGuards';
 
-import { CONFIG_FILE_NAMES, COSMICONFIG_MODULE_NAME } from '@/constants/index';
+import { CONFIG_FILE_NAMES, COSMICONFIG_MODULE_NAME } from '@/constants/configPlugin';
 import LOG_MESSAGES from '@/constants/logMessages';
 
 import DEFAULT_CONFIGURATION from '@/config/defaultConfiguration';
@@ -23,6 +24,7 @@ import type { CommitJazzerPrompterOptions } from '@/types/index';
  * - `.jazzer-cz.json`
  * - `jazzer-cz.json`
  * - `jazzer-cz.js`
+ * - `jazzer-cz.ts
  *
  * The function returns the merged configuration with the default configuration.
  */
@@ -31,6 +33,9 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 		const explorer = cosmiconfig(COSMICONFIG_MODULE_NAME, {
 			cache: true,
 			searchPlaces: CONFIG_FILE_NAMES,
+			loaders: {
+				'.ts': TypeScriptLoader(),
+			},
 		});
 
 		const foundedFile = await explorer.search();
@@ -52,7 +57,7 @@ export const loadJazzerConfig = async (): Promise<CommitJazzerPrompterOptions> =
 				issues: parseResult.error.issues,
 			});
 
-			LOG_MESSAGES.GENERIC_ERROR(errorMessage);
+			LOG_MESSAGES.ERROR(errorMessage);
 
 			process.exit(1);
 		}

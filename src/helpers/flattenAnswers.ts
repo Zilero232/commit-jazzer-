@@ -25,10 +25,10 @@ const flattenAnswers = (answers: PromptAnswers): Record<string, unknown> => {
 		}
 
 		if (isObject(value)) {
-			// Если это объект, объединяем его поля с основным объектом
+			// If it is an object, combine its fields with the main object.
 			flatAnswers = { ...flatAnswers, ...(value as Record<string, unknown>) };
 		} else {
-			// Если это не объект, добавляем его в основной объект
+			// If it is not an object, add it to the main object.
 			flatAnswers[key] = value;
 		}
 	});

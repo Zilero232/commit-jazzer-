@@ -95,7 +95,7 @@ export const generateQuestionPrompts = async ({
 						issues: parseResult.error.issues,
 					});
 
-					LOG_MESSAGES.GENERIC_ERROR(errorMessage);
+					LOG_MESSAGES.ERROR(errorMessage);
 				}
 
 				return parseResult.success;
@@ -122,7 +122,7 @@ export const generateQuestionPrompts = async ({
 
 					break;
 				default:
-					LOG_MESSAGES.GENERIC_ERROR(`Unknown key: ${key}`);
+					LOG_MESSAGES.ERROR(`Unknown key: ${key}`);
 			}
 		}
 		// If this is type = maxlength-input, then add the min and max length options.
