@@ -1,8 +1,6 @@
 import { existsSync, writeFileSync } from 'node:fs';
 import process from 'node:process';
-
 import { generateSchema, getProgramFromFiles } from 'typescript-json-schema';
-
 import type { PartialArgs } from 'typescript-json-schema';
 
 const TS_CONFIG_PATH = 'tsconfig.json';
@@ -10,41 +8,56 @@ const TYPE_FILE_PATH = 'src/types/index.ts';
 const TYPE_NAME = 'CommitJazzerPrompterOptions';
 const OUTPUT_PATH = 'public/commit-jazzer-schema.json';
 
-// Settings for generating a schema.
+// Console styling
+const colors = {
+	success: '\x1B[32m%s\x1B[0m', // Green
+	error: '\x1B[31m%s\x1B[0m', // Red
+	info: '\x1B[36m%s\x1B[0m', // Cyan
+};
+
+// Settings for schema generation
 const settings: PartialArgs = {
 	required: true,
 	ref: false,
 	skipLibCheck: true,
 };
 
-// Checking for tsconfig.json.
-if (!existsSync(TS_CONFIG_PATH)) {
-	console.error(`Error: tsconfig.json not found at path ${TS_CONFIG_PATH}`);
+// Check if file exists
+const checkFileExists = (path: string, description: string) => {
+	if (!existsSync(path)) {
+		console.error(colors.error, `❌ Error: ${description} not found at path ${path}`);
 
-	process.exit(1);
-}
+		process.exit(1);
+	}
 
-// Checking for a type file.
-if (!existsSync(TYPE_FILE_PATH)) {
-	console.error(`Error: Type file not found at path ${TYPE_FILE_PATH}`);
-
-	process.exit(1);
-}
+	console.log(colors.info, `✓ ${description} found`);
+};
 
 try {
-	// Getting an AST program.
+	console.log(colors.info, '🚀 Starting JSON schema generation...');
+
+	checkFileExists(TS_CONFIG_PATH, 'TypeScript config');
+	checkFileExists(TYPE_FILE_PATH, 'Type definitions file');
+
 	const program = getProgramFromFiles([TYPE_FILE_PATH], {}, TS_CONFIG_PATH);
 
-	// Compiling a schema for a given type.
+	console.log(colors.info, '📝 Program AST successfully created');
+
 	const schema = generateSchema(program, TYPE_NAME, settings);
 
 	if (schema) {
 		writeFileSync(OUTPUT_PATH, JSON.stringify(schema, null, 2), 'utf-8');
 
-		console.warn('JSON schema successfully generated at:', OUTPUT_PATH);
+		console.log(colors.success, `✨ JSON schema successfully generated at: ${OUTPUT_PATH}`);
 	} else {
-		console.error('Schema generation failed: Schema object is null.');
+		console.error(colors.error, '❌ Schema generation failed: Schema object is null');
+
+		process.exit(1);
 	}
 } catch (error) {
-	console.error('An error occurred during schema generation:', error);
+	console.error(colors.error, '❌ An error occurred during schema generation:');
+
+	console.error(error);
+
+	process.exit(1);
 }

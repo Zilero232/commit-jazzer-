@@ -3,7 +3,7 @@ import type { LoggerOptions } from 'winston';
 
 import { LogLevel } from '@/types/modules/winston';
 
-const { colorize, prettyPrint, json, combine, timestamp, printf } = format;
+const { colorize, prettyPrint, combine, timestamp, printf } = format;
 
 const loggerWinstonConfig: LoggerOptions = {
 	level: LogLevel.INFO,
@@ -20,18 +20,6 @@ const loggerWinstonConfig: LoggerOptions = {
 				}),
 				printf(info => {
 					return `${info.timestamp as string} ${info.level}: ${info.message as string}`;
-				}),
-			),
-		}),
-		new transports.File({
-			filename: 'logger/winston-logger.log',
-			format: combine(
-				timestamp({
-					format: 'YYYY-MM-DD HH:mm:ss',
-				}),
-				json(),
-				printf(({ timestamp, level, message }) => {
-					return `${JSON.stringify({ timestamp, level, message })}\n`;
 				}),
 			),
 		}),

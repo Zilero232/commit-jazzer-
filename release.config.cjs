@@ -14,11 +14,11 @@ const config = {
 
 				// Rules for commit types, defining which commit type will trigger which version bump
 				releaseRules: [
-					// A 'breaking' commit triggers a major version release (used for breaking changes)
-					{ type: 'breaking', release: 'major' },
-
 					// A 'feat' (feature) commit triggers a minor version release
 					{ type: 'feat', release: 'minor' },
+
+					// A 'breaking' commit triggers a major version release (used for breaking changes)
+					{ type: 'breaking', release: 'patch' },
 
 					// A 'fix' (bug fix) commit triggers a patch version release
 					{ type: 'fix', release: 'patch' },

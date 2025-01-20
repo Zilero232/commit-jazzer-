@@ -20,9 +20,12 @@ import type { CommitJazzerPrompterOptions } from '@/types/index';
  * The function returns a promise that resolves to either the loaded configuration or null if the configuration is invalid.
  *
  * The configuration is loaded using the `cosmiconfig` package, which searches for configuration files in the following order:
- * - `.jazzer-cz.json`
- * - `jazzer-cz.json`
- * - `jazzer-cz.js`
+ * - '.jazzer.config.json',
+	- 'jazzer.config.json',
+	- '.jazzer.config.js',
+	- 'jazzer.config.js',
+	- '.jazzer.config.ts',
+	- 'jazzer.config.ts',
  *
  * The function returns the merged configuration with the default configuration.
  */

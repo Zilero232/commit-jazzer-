@@ -21,18 +21,18 @@
 
 ## Table of Contents
 
-1. [🎥 Demo](#🎥-demo)
-2. [🔍 Description](#🔍-description)
-3. [⚡ Features](#⚡-features)
-4. [💻 Installation and Usage](#💻-installation-and-usage)
-5. [⚙️ Configuration](#⚙️-configuration)
-6. [🤝 Contributing](#🤝-contributing)
-7. [📜 Code of Conduct](#📜-code-of-conduct)
-8. [🔒 Security Policy](#🔒-security-policy)
-9. [👥 Team](#👥-team)
-10. [📄 License](#📄-license)
+1. [🎥 Demo](#-demo)
+2. [🔍 Description](#-description)
+3. [⚡ Features](#-features)
+4. [💻 Installation and Usage](#-installation-and-usage)
+5. [⚙️ Configuration](#-configuration)
+6. [🤝 Contributing](#-contributing)
+7. [📜 Code of Conduct](#-code-of-conduct)
+8. [🔒 Security Policy](#-security-policy)
+9. [👥 Team](#-team)
+10. [📄 License](#-license)
 
-## Demo
+## 🎥 Demo
 
 ![commit-jazzer](public/commit-demo.gif)
 
@@ -74,6 +74,16 @@ echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
 
 You are all set! Now `cd` into any `git` repository and use `git cz` and you will find the `commit-jazzer` prompt.
 
+Or you can, add this configuration to your `package.json`:
+
+```json
+"config": {
+  "commitizen": {
+    "path": "commit-jazzer"
+  }
+}
+```
+
 ### Locally
 
 To install `commit-jazzer` as a development dependency, run::
@@ -87,7 +97,7 @@ Then, add this configuration to your `package.json`:
 ```json
 "config": {
   "commitizen": {
-    "path": "commit-jazzer"
+    "path": "node_modules/commit-jazzer"
   }
 }
 ```
@@ -101,6 +111,18 @@ git cz
 ## ⚙️ Configuration
 
 This configuration file is used to customize the behavior of commit-jazzer without modifying the source code.
+
+- **JSON format**
+  - `.jazzer.config.json`
+  - `jazzer.config.json`
+
+- **JavaScript format**
+  - `.jazzer.config.js`
+  - `jazzer.config.js`
+
+- **TypeScript format**
+  - `.jazzer.config.ts`
+  - `jazzer.config.ts`
 
 ### Example Configuration File
 
