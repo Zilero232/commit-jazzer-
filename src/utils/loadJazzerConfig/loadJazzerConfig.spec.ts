@@ -94,7 +94,7 @@ describe('loadJazzerConfig', async () => {
 			issues: [{ message: 'Invalid config' }],
 		});
 
-		expect(LOG_MESSAGES.GENERIC_ERROR).toHaveBeenCalledWith('Invalid config');
+		expect(LOG_MESSAGES.ERROR).toHaveBeenCalledWith('Invalid config');
 
 		expect(exitMock).toHaveBeenCalledWith(1);
 	});

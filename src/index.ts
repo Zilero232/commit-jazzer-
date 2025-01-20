@@ -6,7 +6,7 @@ import { filterBadWords, generateQuestionPrompts, loadJazzerConfig, messageForma
 import flattenAnswers from './helpers/flattenAnswers';
 import { isBoolean } from './helpers/typeGuards';
 
-import type { ICommitFunc, TypeInquirer } from './types';
+import type { CommitMessageFunc, TypeInquirer } from './types';
 import { type PromptAnswers, PromptQuestionTypeEnum } from './types/modules/prompt';
 
 import showBanner from './scripts/showCommitBanner';
@@ -15,11 +15,11 @@ import showBanner from './scripts/showCommitBanner';
  * Commitizen adapter for formatting commit messages with style and rhythm.
  *
  * @param {registerPrompt} inquirer - Inquirer instance.
- * @param {ICommitFunc} commitMessage - Commit message function.
+ * @param {CommitMessageFunc} commitMessage - Commit message function.
  *
  * @returns {Promise<void>} - Promise that resolves when the commit message is formatted and committed.
  */
-const CommitJazzerPrompter = async ({ registerPrompt, prompt }: TypeInquirer, commitMessage: ICommitFunc) => {
+const CommitJazzerPrompter = async ({ registerPrompt, prompt }: TypeInquirer, commitMessage: CommitMessageFunc) => {
 	registerPrompt(PromptQuestionTypeEnum.Autocomplete, inquirerPrompt);
 	registerPrompt(PromptQuestionTypeEnum.MaxLengthInput, InquirerMaxLength);
 

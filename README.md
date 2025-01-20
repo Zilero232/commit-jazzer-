@@ -69,7 +69,7 @@ npm install commit-jazzer -g
 Create a `.czrc` file in your `home` directory, with `path` referring to the preferred, globally-installed, `commitizen` adapter
 
 ```sh
-echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+echo '{ "path": "commit-jazzer" }' > ~/.czrc
 ```
 
 You are all set! Now `cd` into any `git` repository and use `git cz` and you will find the `commit-jazzer` prompt.
@@ -109,6 +109,8 @@ git cz
 ```
 
 ## ⚙️ Configuration
+
+### Configuration Types Support
 
 This configuration file is used to customize the behavior of commit-jazzer without modifying the source code.
 
