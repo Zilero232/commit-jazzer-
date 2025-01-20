@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/Zilero232/commit-jazzer/compare/v1.1.2...v1.1.3) (2025-01-20)
+
+
+### Bug Fixes
+
+* 🐛 - Removed unnecessary generate-schema ([e3d8a7f](https://github.com/Zilero232/commit-jazzer/commit/e3d8a7f82964fc7c00ab5f359107853755c772bc))
+
 ## [1.1.2](https://github.com/Zilero232/commit-jazzer/compare/v1.1.1...v1.1.2) (2025-01-13)
 
 ## [1.1.1](https://github.com/Zilero232/commit-jazzer/compare/v1.1.0...v1.1.1) (2025-01-08)
